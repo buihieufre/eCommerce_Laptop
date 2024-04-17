@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">LapUni</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="home_page">Home Page</string>
+    <string name="search_page">Search Page</string>
+    <string name="love_page">Love Page</string>
+    <string name="account_page">Account Page </string>
+
+</resources>
