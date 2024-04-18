@@ -1,0 +1,2 @@
+public interface RegisterActivity1 {
+}
