@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    >
     <item
         android:id="@+id/home"
         android:title="Home"
-        android:icon="@drawable/ic_home">
+        android:icon="@drawable/home">
     </item>
     <item
         android:id="@+id/search"
         android:title="Search"
-        android:icon="@drawable/ic_search">
+        android:icon="@drawable/search">
     </item>
     <item
         android:id="@+id/love"
         android:title="Wishlist"
-        android:icon="@drawable/ic_love">
+        android:icon="@drawable/love">
     </item>
     <item
         android:id="@+id/account"
         android:title="Account"
-        android:icon="@drawable/ic_user">
+        android:icon="@drawable/account">
     </item>
 </menu>

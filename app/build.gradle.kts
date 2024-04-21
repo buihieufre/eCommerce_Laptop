@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.appbanlaptop"
-        minSdk = 29
+        minSdk = 26
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -40,5 +40,13 @@ dependencies {
     androidTestImplementation(libs.espresso.core)
 
     implementation("com.github.bumptech.glide:glide:4.16.0")
-    implementation("com.google.android.material:material:1.2.0")
+    implementation("com.google.android.material:material:1.11.0")
+
+    //RxJava
+    implementation("io.reactivex.rxjava3:rxandroid:3.0.0")
+    implementation("io.reactivex.rxjava3:rxjava:3.0.0")
+    // Retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.github.akarnokd:rxjava3-retrofit-adapter:3.0.0")
 }

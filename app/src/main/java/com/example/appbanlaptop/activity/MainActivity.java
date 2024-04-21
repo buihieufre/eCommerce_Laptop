@@ -1,40 +1,35 @@
-package com.example.appbanlaptop;
+package com.example.appbanlaptop.activity;
 
 import android.annotation.SuppressLint;
-import android.app.FragmentBreadCrumbs;
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.LinearGradient;
 import android.graphics.Shader;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextPaint;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.ViewFlipper;
+import android.widget.Toast;
+
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-import androidx.core.graphics.Insets;
 import androidx.core.view.GravityCompat;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
-import  androidx.appcompat.app.ActionBar;
 
-import com.bumptech.glide.Glide;
+import com.example.appbanlaptop.fragment.AccountFragment;
+import com.example.appbanlaptop.fragment.HomeFragment;
+import com.example.appbanlaptop.fragment.LoveFragment;
+import com.example.appbanlaptop.R;
+import com.example.appbanlaptop.fragment.SearchFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnItemSelectedListener {
@@ -47,23 +42,37 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     SearchFragment searchFragment = new SearchFragment();
     LoveFragment loveFragment = new LoveFragment();
     AccountFragment accountFragment = new AccountFragment();
+    public int previousItemId = -1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         EdgeToEdge.enable(this);
-        bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        AnhXa();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setNavigationBarColor(ContextCompat.getColor(this, R.color.white));
+        }
         bottomNavigationView.setOnItemSelectedListener(this);
         bottomNavigationView.setSelectedItemId(R.id.home);
-        AnhXa();
         ActionBar();
+        if(isConnected(this)){
+            Toast.makeText(getApplicationContext(), "Ket noi wifi roi :)", Toast.LENGTH_LONG).show();
+        }else{
+            Toast.makeText(getApplicationContext(), "Vui long ket noi mang", Toast.LENGTH_LONG).show();
+        }
 
+    }
+
+    private boolean isConnected(Context context){
+        ConnectivityManager connManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo mWifi = connManager.getActiveNetworkInfo();
+        return mWifi != null && mWifi.isConnectedOrConnecting();
     }
 
     private void ActionBar() {
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-        toolbar.setNavigationIcon(R.drawable.menu_drawer);
+        toolbar.setNavigationIcon(R.drawable.menu);
         TextView homeHeader = (TextView) findViewById(R.id.homeHeader);
         homeHeader.setLeft(0);
         toolbar.setNavigationOnClickListener(v -> {drawerLayout.openDrawer(GravityCompat.START);});
@@ -87,18 +96,30 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     private void AnhXa(){
         toolbar = findViewById(R.id.toolbar);
-//        viewFlipper = findViewById(R.id.viewFlipHome);
         navigationView = findViewById(R.id.navView);
         drawerLayout = findViewById(R.id.drawerLayoutHome);
+        bottomNavigationView = findViewById(R.id.bottomNavigationView);
     }
-//    @Override
-//    public void onNavigationItemReselected(@NonNull MenuItem menuItem) {
-//
-//    }
+
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            if(previousItemId != -1){
+                MenuItem previousItem = bottomNavigationView.getMenu().findItem(previousItemId);
+                if(previousItem.getItemId() == R.id.home){
+                    previousItem.setIcon(R.drawable.home);
+                }else if(previousItem.getItemId() == R.id.search){
+                    previousItem.setIcon(R.drawable.search);
+                }else if (previousItem.getItemId() == R.id.love){
+                    previousItem.setIcon(R.drawable.love);
+                }else if(previousItem.getItemId() == R.id.account){
+                    previousItem.setIcon(R.drawable.account);
+                }
+            }
+            previousItemId = item.getItemId();
             int id = item.getItemId();
             if(id == R.id.home){
+                item.setIcon(R.drawable.home_actived);
                 getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.flFragement, homeFragment)
@@ -106,15 +127,15 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 return true;
             }
             else if (id == R.id.search){
+                item.setIcon(R.drawable.search_actived);
                 getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.flFragement, searchFragment)
                         .commit();
                 return true;
             }
-
-
             else if (id == R.id.love){
+                item.setIcon(R.drawable.love_actived);
                 getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.flFragement, loveFragment)
@@ -122,13 +143,15 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 return true;
             }
             else if (id == R.id.account){
+                item.setIcon(R.drawable.account_actived);
                 getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.flFragement, accountFragment)
                         .commit();
                 return true;
-
             }
             return false;
     }
+
+
 }

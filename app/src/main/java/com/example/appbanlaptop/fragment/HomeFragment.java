@@ -1,4 +1,4 @@
-package com.example.appbanlaptop;
+package com.example.appbanlaptop.fragment;
 
 import android.os.Bundle;
 
@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.ViewFlipper;
 
 import com.bumptech.glide.Glide;
+import com.example.appbanlaptop.R;
 
 import java.util.ArrayList;
 import java.util.List;
