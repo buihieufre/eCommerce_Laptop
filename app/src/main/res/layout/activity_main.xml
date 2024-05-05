@@ -11,27 +11,33 @@
     android:paddingBottom="0dp"
     tools:context=".activity.MainActivity"
     >
+
     <androidx.drawerlayout.widget.DrawerLayout
         android:id="@+id/drawerLayoutHome"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        >
-        <ScrollView
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
 
+        <ScrollView
+            android:isScrollContainer="false"
+            android:fillViewport="true"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent">
                 <LinearLayout
+
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="60dp">
 
                     <androidx.appcompat.widget.Toolbar
                         android:id="@+id/toolbar"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:background="#fff"
                         android:elevation="9dp"
                         app:title="Laptop Universe">
@@ -46,21 +52,21 @@
                             android:id="@+id/homeHeader"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:layout_centerHorizontal="true"
                             android:layout_marginEnd="60dp"
                             android:text="@string/app_name"
                             android:textAlignment="center"
-                            android:textSize="40sp"
-                            android:layout_centerHorizontal="true"
-                            />
+                            android:textSize="40sp" />
 
                     </androidx.appcompat.widget.Toolbar>
                 </LinearLayout>
+
                 <LinearLayout
-                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
                     <FrameLayout
-                        android:layout_marginTop="10dp"
                         android:id="@+id/flFragement"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
@@ -69,19 +75,21 @@
             </LinearLayout>
 
         </ScrollView>
+
         <com.google.android.material.navigation.NavigationView
             android:id="@+id/navView"
-            android:background="#ccc"
-            android:layout_gravity="start"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:background="#ccc">
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="This is tab bar"
-                android:gravity="center"
                 android:layout_gravity="center"
-                android:textSize="50sp"/>
+                android:gravity="center"
+                android:text="This is tab bar"
+                android:textSize="50sp" />
 
         </com.google.android.material.navigation.NavigationView>
 

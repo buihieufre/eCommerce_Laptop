@@ -22,7 +22,8 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.widget.Toolbar;
 
-import com.example.appbanlaptop.fragment.AccountFragment;
+import com.example.appbanlaptop.fragment.LoginFragment;
+import com.example.appbanlaptop.fragment.RegisterFragment;
 import com.example.appbanlaptop.fragment.HomeFragment;
 import com.example.appbanlaptop.fragment.LoveFragment;
 import com.example.appbanlaptop.R;
@@ -41,7 +42,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     HomeFragment homeFragment = new HomeFragment();
     SearchFragment searchFragment = new SearchFragment();
     LoveFragment loveFragment = new LoveFragment();
-    AccountFragment accountFragment = new AccountFragment();
+    RegisterFragment registerFragment = new RegisterFragment();
+
+    LoginFragment loginFragment  = new LoginFragment();
     public int previousItemId = -1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,14 +58,13 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         bottomNavigationView.setOnItemSelectedListener(this);
         bottomNavigationView.setSelectedItemId(R.id.home);
         ActionBar();
+
         if(isConnected(this)){
-            Toast.makeText(getApplicationContext(), "Ket noi wifi roi :)", Toast.LENGTH_LONG).show();
         }else{
-            Toast.makeText(getApplicationContext(), "Vui long ket noi mang", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "No internet, please connect", Toast.LENGTH_LONG).show();
         }
 
     }
-
     private boolean isConnected(Context context){
         ConnectivityManager connManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo mWifi = connManager.getActiveNetworkInfo();
@@ -93,12 +95,12 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     }
 
-
     private void AnhXa(){
         toolbar = findViewById(R.id.toolbar);
         navigationView = findViewById(R.id.navView);
         drawerLayout = findViewById(R.id.drawerLayoutHome);
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
+
     }
 
 
@@ -146,7 +148,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 item.setIcon(R.drawable.account_actived);
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.flFragement, accountFragment)
+                        ////////
+                        .replace(R.id.flFragement, loginFragment)
                         .commit();
                 return true;
             }

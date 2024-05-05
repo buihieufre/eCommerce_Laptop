@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:isScrollContainer="false"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/accountbackground"
+    android:fitsSystemWindows="true"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragment.AccountFragment">
+    tools:context=".fragment.RegisterFragment">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -20,7 +21,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="80dp"
                 android:text="Register an account"
-                android:textColor="@color/design_default_color_on_primary"
+                android:textColor="#000"
                 android:textSize="30sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -31,19 +32,19 @@
                 app:layout_constraintVertical_bias="0.036" />
 
             <EditText
-                android:id="@+id/FullName"
+                android:id="@+id/fullNameReg"
                 android:layout_width="311dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="16dp"
                 android:alpha="0.6"
                 android:drawableLeft="@drawable/user1"
                 android:drawablePadding="10dp"
-                android:textColor="#fff"
+                android:textColor="#000"
                 android:ems="10"
                 android:hint="Your full name"
                 android:inputType="text|textNoSuggestions"
                 android:paddingLeft="20dp"
-                android:textColorHint="@color/design_default_color_on_primary"
+                android:textColorHint="#000"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -53,7 +54,7 @@
                 app:layout_constraintVertical_bias="0.109" />
 
             <EditText
-                android:id="@+id/PhoneNum"
+                android:id="@+id/phoneNumReg"
                 android:layout_width="311dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="16dp"
@@ -64,7 +65,7 @@
                 android:hint="Phone number"
                 android:inputType="number"
                 android:paddingLeft="20dp"
-                android:textColorHint="@color/design_default_color_on_primary"
+                android:textColorHint="#000"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -74,18 +75,18 @@
                 app:layout_constraintVertical_bias="0.056" />
 
             <EditText
-                android:id="@+id/Email"
+                android:id="@+id/emailReg"
                 android:layout_width="311dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="16dp"
                 android:alpha="0.6"
-                android:drawableLeft="@drawable/email1"
+                android:drawableLeft="@drawable/email"
                 android:drawablePadding="10dp"
                 android:ems="10"
                 android:hint="Your email"
                 android:inputType="textEmailAddress"
                 android:paddingLeft="20dp"
-                android:textColorHint="@color/design_default_color_on_primary"
+                android:textColorHint="#000"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -94,7 +95,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/FullName"
                 app:layout_constraintVertical_bias="0.045" />
             <EditText
-                android:id="@+id/Password"
+                android:id="@+id/passwordReg"
                 android:layout_width="311dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="16dp"
@@ -103,9 +104,9 @@
                 android:drawablePadding="10dp"
                 android:ems="10"
                 android:hint="Password"
-                android:inputType="text"
+                android:inputType="textPassword"
                 android:paddingLeft="20dp"
-                android:textColorHint="@color/design_default_color_on_primary"
+                android:textColorHint="#000"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -114,7 +115,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/PhoneNum"
                 app:layout_constraintVertical_bias="0.048" />
             <EditText
-                android:id="@+id/passWConfirm"
+                android:id="@+id/passwordConfirmReg"
                 android:layout_width="311dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="16dp"
@@ -123,9 +124,9 @@
                 android:drawablePadding="10dp"
                 android:ems="10"
                 android:hint="Password confirmination"
-                android:inputType="text"
+                android:inputType="textPassword"
                 android:paddingLeft="20dp"
-                android:textColorHint="@color/design_default_color_on_primary"
+                android:textColorHint="#000"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -141,20 +142,32 @@
                 android:layout_marginTop="16dp"
                 android:alpha="0.6"
                 android:text="I agree to the Terms of Privacy Policy"
-                android:textColor="@color/design_default_color_on_primary"
+                android:textColor="#000"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toTopOf="@+id/btn_register"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.348"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/passWConfirm" />
+
+            <TextView
+                android:layout_marginTop="10dp"
+                android:id="@+id/errorReg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/error_while_register"
+                android:visibility="gone"
+                android:textColor="#f00">
+
+            </TextView>
+
             <Button
-                android:id="@+id/btn_register"
+                android:id="@+id/registerBtn"
                 android:layout_width="240dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:text="Register"
-                android:textColor="@color/design_default_color_on_primary"
+                android:textColor="#000"
                 android:textColorLink="@color/design_default_color_primary_dark"
                 android:textSize="20sp"
                 android:background="@drawable/round_rect_shape"
@@ -166,7 +179,7 @@
                 app:layout_constraintVertical_bias="0.592" />
 
             <TextView
-                android:id="@+id/alreadyHaveAccount"
+                android:id="@+id/redirectLogin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
