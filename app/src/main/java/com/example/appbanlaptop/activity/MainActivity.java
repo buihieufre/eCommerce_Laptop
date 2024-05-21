@@ -25,9 +25,9 @@ import androidx.appcompat.widget.Toolbar;
 import com.example.appbanlaptop.fragment.LoginFragment;
 import com.example.appbanlaptop.fragment.RegisterFragment;
 import com.example.appbanlaptop.fragment.HomeFragment;
-import com.example.appbanlaptop.fragment.LoveFragment;
 import com.example.appbanlaptop.R;
 import com.example.appbanlaptop.fragment.SearchFragment;
+import com.example.appbanlaptop.fragment.WishListFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
@@ -41,10 +41,12 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     BottomNavigationView bottomNavigationView;
     HomeFragment homeFragment = new HomeFragment();
     SearchFragment searchFragment = new SearchFragment();
-    LoveFragment loveFragment = new LoveFragment();
+    WishListFragment WishListFragment = new WishListFragment();
     RegisterFragment registerFragment = new RegisterFragment();
 
     LoginFragment loginFragment  = new LoginFragment();
+
+
     public int previousItemId = -1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,54 +108,55 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            if(previousItemId != -1){
-                MenuItem previousItem = bottomNavigationView.getMenu().findItem(previousItemId);
-                if(previousItem.getItemId() == R.id.home){
-                    previousItem.setIcon(R.drawable.home);
-                }else if(previousItem.getItemId() == R.id.search){
-                    previousItem.setIcon(R.drawable.search);
-                }else if (previousItem.getItemId() == R.id.love){
-                    previousItem.setIcon(R.drawable.love);
-                }else if(previousItem.getItemId() == R.id.account){
-                    previousItem.setIcon(R.drawable.account);
-                }
+        if(previousItemId != -1){
+            MenuItem previousItem = bottomNavigationView.getMenu().findItem(previousItemId);
+            if(previousItem.getItemId() == R.id.home){
+                previousItem.setIcon(R.drawable.home);
+            }else if(previousItem.getItemId() == R.id.search){
+                previousItem.setIcon(R.drawable.search);
+            }else if (previousItem.getItemId() == R.id.love){
+                previousItem.setIcon(R.drawable.love);
+            }else if(previousItem.getItemId() == R.id.account){
+                previousItem.setIcon(R.drawable.account);
             }
-            previousItemId = item.getItemId();
-            int id = item.getItemId();
-            if(id == R.id.home){
-                item.setIcon(R.drawable.home_actived);
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.flFragement, homeFragment)
-                        .commit();
-                return true;
-            }
-            else if (id == R.id.search){
-                item.setIcon(R.drawable.search_actived);
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.flFragement, searchFragment)
-                        .commit();
-                return true;
-            }
-            else if (id == R.id.love){
-                item.setIcon(R.drawable.love_actived);
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.flFragement, loveFragment)
-                        .commit();
-                return true;
-            }
-            else if (id == R.id.account){
-                item.setIcon(R.drawable.account_actived);
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        ////////
-                        .replace(R.id.flFragement, loginFragment)
-                        .commit();
-                return true;
-            }
-            return false;
+        }
+        previousItemId = item.getItemId();
+        int id = item.getItemId();
+        if(id == R.id.home){
+            item.setIcon(R.drawable.home_actived);
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.flFragement, homeFragment)
+                    .commit();
+            return true;
+        }
+        else if (id == R.id.search){
+            item.setIcon(R.drawable.search_actived);
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.flFragement, searchFragment)
+                    .commit();
+            return true;
+        }
+        else if (id == R.id.love){
+            item.setIcon(R.drawable.love_actived);
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.flFragement, WishListFragment)
+                    .commit();
+            return true;
+        }
+        else if (id == R.id.account){
+            item.setIcon(R.drawable.account_actived);
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    ////////
+                    .replace(R.id.flFragement, loginFragment)
+                    .commit();
+            return true;
+        }
+
+        return false;
     }
 
 
