@@ -1,4 +1,4 @@
-package com.example.appbanlaptop.Favorite_List;
+package com.example.appbanlaptop.modal;
 
 public class FavoriteItem {
     private String productName;

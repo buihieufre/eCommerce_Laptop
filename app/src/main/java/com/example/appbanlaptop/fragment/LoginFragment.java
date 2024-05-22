@@ -44,7 +44,7 @@ public class LoginFragment extends Fragment {
         btnLogin = v.findViewById(R.id.loginBtn);
         // Handle when click login btn
         RequestQueue queue = Volley.newRequestQueue(getActivity().getApplicationContext());
-        String url ="http://172.16.35.194:8080/login_register/login.php";
+        String url ="http://172.16.6.81:8080/login_register/login.php";
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {

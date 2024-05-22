@@ -1,4 +1,4 @@
-package com.example.appbanlaptop.Favorite_List;
+package com.example.appbanlaptop.adapter;
 
 import android.graphics.Paint;
 import android.view.LayoutInflater;
@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.appbanlaptop.modal.FavoriteItem;
 import com.example.appbanlaptop.R;
 
 import java.util.List;

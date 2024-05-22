@@ -116,7 +116,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:src="@drawable/ic_favorite_border"
-            android:contentDescription="@string/ic_favorite"
             android:padding="8dp"/>
 
     </LinearLayout>
