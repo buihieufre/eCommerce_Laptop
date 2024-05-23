@@ -1,5 +1,8 @@
 package com.example.appbanlaptop.fragment;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,6 +19,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -23,6 +27,13 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.appbanlaptop.R;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class LoginFragment extends Fragment {
     EditText emailEdt;
@@ -30,9 +41,13 @@ public class LoginFragment extends Fragment {
     CheckBox rememberBtn;
     TextView goToRegister;
     Button btnLogin;
+    String nameRes, passwordRes, emailRes, apiKey;
+    BottomNavigationView bottomNavigationView;
     public LoginFragment() {
         // Required empty public constructor
     }
+
+    SharedPreferences sharedPreferences;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -42,26 +57,77 @@ public class LoginFragment extends Fragment {
         emailEdt = v.findViewById(R.id.emailLogin);
         passwordEdt = v.findViewById(R.id.passwordLogin);
         btnLogin = v.findViewById(R.id.loginBtn);
-        // Handle when click login btn
-        RequestQueue queue = Volley.newRequestQueue(getActivity().getApplicationContext());
-        String url ="http://172.16.6.81:8080/login_register/login.php";
+        sharedPreferences = getContext().getSharedPreferences("APPBANLAPTOP", Context.MODE_PRIVATE);
+        if(sharedPreferences.getString("logged", "false").equals("true")){
+            UserFragment userFragment = new UserFragment();
+            FragmentTransaction fm = getActivity().getSupportFragmentManager().beginTransaction();
+            fm.setCustomAnimations(
+                    R.anim.slide_in_left_login_register,
+                    R.anim.slide_out_right_login_register
+            ).replace(R.id.flFragement, userFragment).commit();
+        }
 
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        Toast.makeText(getActivity().getApplicationContext(), "Response: " + response,Toast.LENGTH_SHORT).show();
-                        if(response.equals("success")){
 
-                        }
-                    }
-                }, new Response.ErrorListener() {
+        btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onErrorResponse(VolleyError error) {
-            }
-        });
+            public void onClick(View v) {
+                emailRes = String.valueOf(emailEdt.getText());
+                passwordRes = String.valueOf(passwordEdt.getText());
+                emailRes = String.valueOf(emailEdt.getText());
+                RequestQueue queue = Volley.newRequestQueue(getActivity().getApplicationContext());
+                String url ="https://buihieu204.000webhostapp.com/login.php";
 
-        queue.add(stringRequest);
+                StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                try {
+                                    JSONObject jsonObject = new JSONObject(response);
+                                    String status = jsonObject.getString("status");
+                                    String message = jsonObject.getString("message");
+                                    if(status.equals("success")){
+                                        Toast.makeText(getContext(),response, Toast.LENGTH_LONG).show();
+                                        nameRes = jsonObject.getString("name");
+                                        emailRes = jsonObject.getString("email");
+                                        apiKey = jsonObject.getString("apiKey");
+                                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                                        editor.putString("logged", "true");
+                                        editor.putString("name", nameRes);
+                                        editor.putString("email", emailRes);
+                                        editor.putString("apiKey", apiKey);
+                                        editor.apply();
+                                        UserFragment userFragment = new UserFragment();
+                                        FragmentTransaction fm = getActivity().getSupportFragmentManager().beginTransaction();
+                                        fm.setCustomAnimations(
+                                                R.anim.slide_in_left_login_register,
+                                                R.anim.slide_out_right_login_register
+                                        ).replace(R.id.flFragement, userFragment).commit();
+                                    }else {
+                                        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+
+                                    }
+                                } catch (JSONException e) {
+                                    throw new RuntimeException(e);
+                                }
+                            }
+                        }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                    }
+                }){
+                    protected Map<String, String> getParams(){
+                        Map<String, String> paramV = new HashMap<>();
+                        paramV.put("email", emailRes);
+                        paramV.put("password", passwordRes);
+                        return paramV;
+                    }
+                };
+                queue.add(stringRequest);
+            }
+
+        });
+        // Handle when click login btn
+
 
         // Handle on click to redirect register
         goToRegister = v.findViewById(R.id.redirectRegister);
@@ -74,7 +140,6 @@ public class LoginFragment extends Fragment {
                         R.anim.slide_in_left_login_register,
                         R.anim.slide_out_right_login_register
                 ).replace(R.id.flFragement, registerFragment)
-                        .addToBackStack(null)
                         .commit();
             }
         });

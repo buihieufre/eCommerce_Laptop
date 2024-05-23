@@ -40,6 +40,7 @@
             android:textSize="16sp" />
 
         <EditText
+            android:fontFamily="sans-serif"
             android:id="@+id/emailLogin"
             android:layout_width="311dp"
             android:layout_height="50dp"
@@ -63,6 +64,7 @@
             android:textSize="16sp" />
 
         <EditText
+            android:fontFamily="sans-serif"
             android:id="@+id/passwordLogin"
             android:layout_width="311dp"
             android:layout_height="50dp"

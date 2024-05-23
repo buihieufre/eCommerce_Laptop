@@ -68,7 +68,7 @@ public class RegisterFragment extends Fragment {
                 passwordRes = password.getText().toString();
                 passwordConfirmRes = passwordConfirmation.getText().toString();
                 RequestQueue queue = Volley.newRequestQueue(getActivity().getApplicationContext());
-                String url ="http://172.16.35.194:8080/login_register/resgister.php";
+                String url ="https://buihieu204.000webhostapp.com/resgister.php";
 
                 StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                         new Response.Listener<String>() {
@@ -76,7 +76,6 @@ public class RegisterFragment extends Fragment {
                             public void onResponse(String response) {
                                 if(response.equals("success")){
                                     Toast.makeText(getActivity().getApplicationContext(), "Registration successfully", Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(getActivity().getApplicationContext(), LoginFragment.class);
                                     LoginFragment loginFragment = new LoginFragment();
                                     getActivity()
                                             .getSupportFragmentManager()
@@ -85,8 +84,7 @@ public class RegisterFragment extends Fragment {
                                                     R.anim.slide_in_left_login_register,
                                                     R.anim.slide_out_right_login_register
                                             )
-                                            .addToBackStack(null)
-                                            .replace(R.id.flFragement, loginFragment).commit();
+                                            .replace(R.id.flFragement, loginFragment).commitAllowingStateLoss();
                                 }else {
                                     textViewError.setText(response);
                                     textViewError.setVisibility(View.VISIBLE);
@@ -130,7 +128,6 @@ public class RegisterFragment extends Fragment {
                         R.anim.slide_in_left_login_register,
                         R.anim.slide_out_right_login_register
                         )
-                        .addToBackStack(null)
                         .replace(R.id.flFragement, loginFragment).commit();
             }
         });
