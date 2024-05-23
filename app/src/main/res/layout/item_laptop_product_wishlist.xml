@@ -11,7 +11,6 @@
         android:scaleType="centerCrop" />
 
     <TextView
-        android:textStyle="bold"
         android:id="@+id/nameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -33,53 +32,27 @@
         android:layout_marginTop="5dp" />
 
     <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:background="@drawable/border"
-            android:padding="4dp"
-            android:id="@+id/ramTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:layout_marginTop="5dp" />
-
-        <TextView
-            android:background="@drawable/border"
-            android:padding="4dp"
-            android:layout_marginLeft="10dp"
-            android:id="@+id/ssdTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:layout_marginTop="5dp" />
-    </LinearLayout>
-
-    <LinearLayout
+        android:background="@drawable/border"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginTop="10dp">
 
         <ImageButton
+            android:layout_gravity="center_vertical"
             android:id="@+id/addToCartButton"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:src="@drawable/ic_cart"
-            android:background="#ccc"
-            android:contentDescription="@string/add_to_cart"
-            />
-
+            android:background="@android:color/transparent"
+            android:src="@drawable/cart_icon"
+            android:contentDescription="@string/add_to_cart" />
         <ImageButton
-            android:layout_marginLeft="10dp"
-            android:id="@+id/wishListButton"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:contentDescription="@string/wish_list"
             android:background="#ccc"
-            android:src="@drawable/love" />
+            android:id="@+id/removeButton"
+            android:layout_width="45dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/remove"
+            android:contentDescription="Remove from Wishlist" />
     </LinearLayout>
 </LinearLayout>

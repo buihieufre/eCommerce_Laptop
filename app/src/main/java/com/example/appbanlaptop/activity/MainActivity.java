@@ -22,6 +22,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.appbanlaptop.fragment.CartFragment;
 import com.example.appbanlaptop.fragment.LoginFragment;
 import com.example.appbanlaptop.fragment.RegisterFragment;
 import com.example.appbanlaptop.fragment.HomeFragment;
@@ -46,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     LoginFragment loginFragment  = new LoginFragment();
 
-
+    CartFragment CartFragment = new CartFragment();
     public int previousItemId = -1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,9 +116,12 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             }else if(previousItem.getItemId() == R.id.search){
                 previousItem.setIcon(R.drawable.search);
             }else if (previousItem.getItemId() == R.id.love){
-                previousItem.setIcon(R.drawable.love);
+                previousItem.setIcon(R.drawable.love1);
             }else if(previousItem.getItemId() == R.id.account){
                 previousItem.setIcon(R.drawable.account);
+            }
+            else if(previousItem.getItemId() == R.id.Cart){
+                previousItem.setIcon(R.drawable.cart_icon);
             }
         }
         previousItemId = item.getItemId();
@@ -152,6 +156,15 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                     .beginTransaction()
                     ////////
                     .replace(R.id.flFragement, loginFragment)
+                    .commit();
+            return true;
+        }
+        else if (id == R.id.Cart){
+            item.setIcon(R.drawable.cart_icon);
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    ////////
+                    .replace(R.id.flFragement, CartFragment)
                     .commit();
             return true;
         }
