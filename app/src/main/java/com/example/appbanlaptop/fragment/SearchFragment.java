@@ -2,9 +2,11 @@ package com.example.appbanlaptop.fragment;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +30,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.example.appbanlaptop.R;
@@ -52,7 +55,7 @@ public class SearchFragment extends Fragment {
     private EditText searchEditText;
     private List<LaptopProduct> wishList = new ArrayList<>();
     private List<LaptopProduct> cartList = new ArrayList<>();
-
+    static SharedPreferences sharedPreferences;
     @SuppressLint("MissingInflatedId")
     @Nullable
     @Override
@@ -158,7 +161,7 @@ public class SearchFragment extends Fragment {
         if (adapter != null) {
             adapter.updateList(filteredList);
         } else {
-            adapter = new LaptopProductAdapter(requireContext(), filteredList);
+            adapter = new LaptopProductAdapter(getContext(), filteredList);
             listView.setAdapter(adapter);
         }
     }
@@ -257,6 +260,53 @@ public class SearchFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
                         CartManager.getInstance().addToCart(product);
+                        // Insert into database -- adđ to cart item
+
+                        RequestQueue queue = Volley.newRequestQueue(getContext());
+                        String url ="https://buihieu204.000webhostapp.com/insertProduct.php";
+                        sharedPreferences = getContext().getApplicationContext().getSharedPreferences("APPBANLAPTOP", Context.MODE_PRIVATE);
+                        JSONObject postData = new JSONObject();
+
+                        try {
+                                postData.put("emailUser", sharedPreferences.getString("email", "false"));
+                                Log.d("Emai là: ",postData.getString("emailUser"));
+                                postData.put("itemId", String.valueOf(product.getId()) );
+                                postData.put("itemName", String.valueOf(product.getName()) );
+                                postData.put("itemUrl",product.getImageUrl());
+                                postData.put("oldprice",String.valueOf(product.getOldPrice()));
+                                postData.put("discount",String.valueOf(product.getDiscount()));
+                                postData.put("quantity",String.valueOf(product.getQuantity()));
+
+                        } catch (JSONException e) {
+                            throw new RuntimeException(e);
+                        }
+
+                        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, postData,
+                                new Response.Listener<JSONObject>() {
+                                    @Override
+                                    public void onResponse(JSONObject jso) {
+                                        try {
+                                            String status = jso.getString("status");
+                                            String message = jso.getString("message");
+                                            if(status.equals("success")){
+                                                Toast.makeText(getContext(), "Success", Toast.LENGTH_SHORT).show();
+
+                                            }else {
+                                                Toast.makeText(getContext(), "ERrOR: " + message, Toast.LENGTH_SHORT).show();
+
+                                            }
+                                        } catch (JSONException e) {
+                                            throw new RuntimeException(e);
+                                        }
+                                    }
+                                }, new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError volleyError) {
+
+                            }
+                        }
+                        );
+                        queue.add(jsonObjectRequest);
                         Toast.makeText(getContext(), product.getName() + " đã được thêm vào giỏ hàng", Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -265,6 +315,52 @@ public class SearchFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
                         CartManager.getInstance().addToWishList(product);
+                        RequestQueue queue = Volley.newRequestQueue(getContext());
+                        String url ="https://buihieu204.000webhostapp.com/insertLoveList.php";
+                        sharedPreferences = getContext().getApplicationContext().getSharedPreferences("APPBANLAPTOP", Context.MODE_PRIVATE);
+                        JSONObject postData = new JSONObject();
+
+                        try {
+                            postData.put("emailUser", sharedPreferences.getString("email", "false"));
+                            postData.put("itemId", String.valueOf(product.getId()) );
+                            postData.put("itemName", String.valueOf(product.getName()) );
+                            postData.put("itemUrl",product.getImageUrl());
+                            postData.put("oldprice",String.valueOf(product.getOldPrice()));
+                            postData.put("discount",String.valueOf(product.getDiscount()));
+                            postData.put("ram",String.valueOf(product.getRam()));
+                            postData.put("ssd",String.valueOf(product.getSsd()));
+
+
+                        } catch (JSONException e) {
+                            throw new RuntimeException(e);
+                        }
+
+                        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, postData,
+                                new Response.Listener<JSONObject>() {
+                                    @Override
+                                    public void onResponse(JSONObject jso) {
+                                        try {
+                                            String status = jso.getString("status");
+                                            String message = jso.getString("message");
+                                            if(status.equals("success")){
+                                                Toast.makeText(getContext(), "Success", Toast.LENGTH_SHORT).show();
+
+                                            }else {
+                                                Toast.makeText(getContext(), "ERrOR: " + message, Toast.LENGTH_SHORT).show();
+
+                                            }
+                                        } catch (JSONException e) {
+                                            throw new RuntimeException(e);
+                                        }
+                                    }
+                                }, new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError volleyError) {
+
+                            }
+                        }
+                        );
+                        queue.add(jsonObjectRequest);
                         Toast.makeText(getContext(), product.getName() + " đã được thêm vào danh sách yêu thích", Toast.LENGTH_SHORT).show();
                     }
                 });

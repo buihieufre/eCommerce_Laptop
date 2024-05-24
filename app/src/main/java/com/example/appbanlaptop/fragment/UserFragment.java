@@ -3,17 +3,16 @@ package com.example.appbanlaptop.fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -23,9 +22,6 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.appbanlaptop.R;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,11 +29,15 @@ public class UserFragment extends Fragment {
     public UserFragment() {
         // Required empty public constructor
     }
-    TextView userName, email, phone;
+    TextView userName;
+    static TextView email;
+    TextView phone;
     Button btnLogout;
     SharedPreferences sharedPreferences;
     LoginFragment loginFragment;
     @Override
+
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -75,16 +75,11 @@ public class UserFragment extends Fragment {
                                     editor.putString("email", "");
                                     editor.putString("apiKey", "");
                                     editor.apply();
-                                    getActivity().runOnUiThread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            FragmentTransaction fm = getActivity().getSupportFragmentManager().beginTransaction();
-                                            fm.setCustomAnimations(
-                                                    R.anim.slide_in_left_login_register,
-                                                    R.anim.slide_out_right_login_register
-                                            ).replace(R.id.flFragement, loginFragment).commit();
-                                        }
-                                    });
+                                    FragmentTransaction fm = getActivity().getSupportFragmentManager().beginTransaction();
+                                    fm.setCustomAnimations(
+                                            R.anim.slide_in_left_login_register,
+                                            R.anim.slide_out_right_login_register
+                                    ).replace(R.id.flFragement, loginFragment).commit();
                                 }
                                 else{
                                     Toast.makeText(getContext(), response, Toast.LENGTH_SHORT).show();
@@ -99,8 +94,8 @@ public class UserFragment extends Fragment {
                 }) {
                     protected Map<String, String> getParams() {
                         Map<String, String> paramV = new HashMap<>();
-                        paramV.put("apiKey", sharedPreferences.getString("apiKey", ""));
                         paramV.put("email", sharedPreferences.getString("email", ""));
+                        paramV.put("apiKey", sharedPreferences.getString("apiKey", ""));
                         return paramV;
                     }
                 };
