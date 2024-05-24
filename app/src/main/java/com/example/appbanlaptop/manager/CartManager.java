@@ -23,7 +23,20 @@ public class CartManager {
     }
 
     public void addToCart(SearchFragment.LaptopProduct product) {
-        cart.add(product);
+        // Kiểm tra xem sản phẩm đã có trong giỏ hàng chưa
+        boolean found = false;
+        for (SearchFragment.LaptopProduct p : cart) {
+            if (p.getId() == product.getId()) {
+                found = true;
+                p.setQuantity(p.getQuantity() + 1); // Tăng số lượng
+                break;
+            }
+        }
+        if (!found) {
+            // Nếu sản phẩm chưa có trong giỏ hàng, thêm mới
+            product.setQuantity(1);
+            cart.add(product);
+        }
     }
 
     public List<SearchFragment.LaptopProduct> getCart() {
