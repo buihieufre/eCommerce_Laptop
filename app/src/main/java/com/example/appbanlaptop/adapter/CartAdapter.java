@@ -46,52 +46,50 @@ public class CartAdapter extends ArrayAdapter<SearchFragment.LaptopProduct> {
         ImageButton removeButton = convertView.findViewById(R.id.removeButton);
 
         if (product != null) {
-            Glide.with(getContext()).load(product.getImageUrl()).into(imageView);
-            nameTextView.setText(product.getName());
-            oldPriceTextView.setText(getContext().getString(R.string.price_format, product.getOldPrice()));
-            discountTextView.setText(getContext().getString(R.string.discount_format, product.getDiscount()));
-            quantityTextView.setText(String.valueOf(product.getQuantity())); // Hiển thị số lượng
+            if (product.getQuantity() == 0) {
+                // Không hiển thị sản phẩm nếu số lượng bằng 0
+                convertView.setVisibility(View.GONE);
+            } else {
+                convertView.setVisibility(View.VISIBLE);
+                Glide.with(getContext()).load(product.getImageUrl()).into(imageView);
+                nameTextView.setText(product.getName());
+                oldPriceTextView.setText(getContext().getString(R.string.price_format, product.getOldPrice()));
+                discountTextView.setText(getContext().getString(R.string.discount_format, product.getDiscount()));
+                quantityTextView.setText(String.valueOf(product.getQuantity()));
 
-            increaseQuantityButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // Thực hiện tăng số lượng sản phẩm
-                    int newQuantity = product.getQuantity() + 1;
-                    product.setQuantity(newQuantity);
-                    notifyDataSetChanged(); // Cập nhật lại giao diện
-                    List<SearchFragment.LaptopProduct> orderList = new ArrayList<>();
-                    Gson gson = new Gson();
-                    String orderListJson = gson.toJson(orderList);
-
-                    // Lưu trữ chuỗi JSON vào SharedPreferences
-                    SharedPreferences sharedPreferences = getContext().getSharedPreferences("Orders", Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString("order_list", orderListJson);
-                    editor.apply(); // Lưu thay đổi
-
-                }
-            });
-
-            decreaseQuantityButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // Thực hiện giảm số lượng sản phẩm
-                    int newQuantity = product.getQuantity() - 1;
-                    if (newQuantity >= 0) { // Đảm bảo số lượng không âm
+                increaseQuantityButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        // Thực hiện tăng số lượng sản phẩm
+                        int newQuantity = product.getQuantity() + 1;
                         product.setQuantity(newQuantity);
                         notifyDataSetChanged(); // Cập nhật lại giao diện
                     }
-                }
-            });
-            removeButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    remove(product);
-                    notifyDataSetChanged();
-                }
-            });
+                });
+
+                decreaseQuantityButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        // Thực hiện giảm số lượng sản phẩm
+                        int newQuantity = product.getQuantity() - 1;
+                        if (newQuantity >= 0) { // Đảm bảo số lượng không âm
+                            product.setQuantity(newQuantity);
+                            notifyDataSetChanged(); // Cập nhật lại giao diện
+                        }
+                    }
+                });
+
+                removeButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        remove(product);
+                        notifyDataSetChanged();
+                    }
+                });
+            }
         }
 
         return convertView;
     }
 }
+
