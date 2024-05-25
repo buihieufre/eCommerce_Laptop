@@ -276,6 +276,7 @@ public class SearchFragment extends Fragment {
                 });
 
                 wishListButton.setOnClickListener(new View.OnClickListener() {
+                    //fix wishlit k bi trung lap
                     @Override
                     public void onClick(View v) {
                         WishListManager wishListManager = WishListManager.getInstance();
