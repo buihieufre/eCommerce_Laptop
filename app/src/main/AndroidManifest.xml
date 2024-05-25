@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET"/>
     <application
+        android:hardwareAccelerated="false"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:usesCleartextTraffic="true"
@@ -15,7 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         tools:targetApi="31">
-        <activity android:name=".vnpay.VNPayWebViewActivity" />
+        <activity
+            android:name=".activity.DetailActivity"
+            android:exported="false"/>
         <activity
             android:name=".activity.MainActivity"
             android:exported="true">
@@ -25,6 +28,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>

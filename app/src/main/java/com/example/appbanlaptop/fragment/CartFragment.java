@@ -5,15 +5,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ListAdapter;
 import android.widget.ListView;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.appbanlaptop.R;
 import com.example.appbanlaptop.adapter.CartAdapter;
 import com.example.appbanlaptop.manager.CartManager;
-import com.example.appbanlaptop.R;
+
 import java.util.List;
 
 public class CartFragment extends Fragment {
@@ -44,13 +45,6 @@ public class CartFragment extends Fragment {
         });
 
         return view;
-    }
-    private double calculateTotalPrice(List<SearchFragment.LaptopProduct> products) {
-        double totalPrice = 0;
-        for (SearchFragment.LaptopProduct product : products) {
-            totalPrice += (product.getOldPrice()-product.getDiscount()) * product.getQuantity();
-        }
-        return totalPrice;
     }
 }
 

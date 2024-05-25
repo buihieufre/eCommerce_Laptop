@@ -24,11 +24,7 @@ public class WishListManager {
     }
 
     public void addToWishList(SearchFragment.LaptopProduct product) {
-        wishListItems.add(product); // Set sẽ tự động loại bỏ các sản phẩm trùng lặp
-    }
-
-    public void removeFromWishList(SearchFragment.LaptopProduct product) {
-        wishListItems.remove(product);
+        wishListItems.add(product);
     }
 
     public List<SearchFragment.LaptopProduct> getWishListItems() {
