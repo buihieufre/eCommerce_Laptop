@@ -1,11 +1,6 @@
 package com.example.appbanlaptop.retrofit;
 
-import android.content.Context;
-
-import com.google.gson.Gson;
-
 import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory;
-import retrofit2.Converter;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 

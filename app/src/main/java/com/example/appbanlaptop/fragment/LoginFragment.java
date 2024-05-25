@@ -1,15 +1,8 @@
 package com.example.appbanlaptop.fragment;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +12,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -61,10 +58,7 @@ public class LoginFragment extends Fragment {
         if(sharedPreferences.getString("logged", "false").equals("true")){
             UserFragment userFragment = new UserFragment();
             FragmentTransaction fm = getActivity().getSupportFragmentManager().beginTransaction();
-            fm.setCustomAnimations(
-                    R.anim.slide_in_left_login_register,
-                    R.anim.slide_out_right_login_register
-            ).replace(R.id.flFragement, userFragment).commit();
+            fm.replace(R.id.flFragement, userFragment).commit();
         }
 
 
@@ -136,10 +130,7 @@ public class LoginFragment extends Fragment {
             public void onClick(View v) {
                 Fragment registerFragment = new RegisterFragment();
                 FragmentTransaction fm = getActivity().getSupportFragmentManager().beginTransaction();
-                fm.setCustomAnimations(
-                        R.anim.slide_in_left_login_register,
-                        R.anim.slide_out_right_login_register
-                ).replace(R.id.flFragement, registerFragment)
+                fm.replace(R.id.flFragement, registerFragment)
                         .commit();
             }
         });
