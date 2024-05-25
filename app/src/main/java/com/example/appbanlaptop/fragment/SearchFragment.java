@@ -219,6 +219,7 @@ public class SearchFragment extends Fragment {
         public double getDiscount() {
             return discount;
         }
+        @Override
         public boolean equals(Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
