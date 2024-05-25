@@ -20,6 +20,8 @@ import androidx.fragment.app.Fragment;
 import com.bumptech.glide.Glide;
 import com.example.appbanlaptop.manager.CartManager;
 import com.example.appbanlaptop.R;
+import com.example.appbanlaptop.manager.WishListManager;
+
 import java.util.List;
 
 public class WishListFragment extends Fragment {
@@ -33,7 +35,7 @@ public class WishListFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_wishlist, container, false);
         listView = view.findViewById(R.id.listViewWishList);
 
-        List<SearchFragment.LaptopProduct> wishList = CartManager.getInstance().getWishList();
+        List<SearchFragment.LaptopProduct> wishList = WishListManager.getInstance().getWishListItems();
         adapter = new WishListAdapter(requireContext(), wishList);
         listView.setAdapter((ListAdapter) adapter);
 
@@ -59,13 +61,13 @@ public class WishListFragment extends Fragment {
             TextView oldPriceTextView = convertView.findViewById(R.id.oldPriceTextView);
             TextView discountTextView = convertView.findViewById(R.id.discountTextView);
             ImageButton addToCartButton = convertView.findViewById(R.id.addToCartButton);
+            ImageButton removeButton = convertView.findViewById(R.id.removeButton);
 
             if (product != null) {
                 Glide.with(getContext()).load(product.getImageUrl()).into(imageView);
                 nameTextView.setText(product.getName());
                 oldPriceTextView.setText(getContext().getString(R.string.price_format, product.getOldPrice()));
                 discountTextView.setText(getContext().getString(R.string.discount_format, product.getDiscount()));
-                ImageButton removeButton = convertView.findViewById(R.id.removeButton);
 
                 addToCartButton.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -74,10 +76,12 @@ public class WishListFragment extends Fragment {
                         Toast.makeText(getContext(), product.getName() + " đã được thêm vào giỏ hàng", Toast.LENGTH_SHORT).show();
                     }
                 });
+
                 removeButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        remove(product);
+                        WishListManager.getInstance().removeFromWishList(product);
+                        adapter.remove(product);
                         notifyDataSetChanged();
                     }
                 });

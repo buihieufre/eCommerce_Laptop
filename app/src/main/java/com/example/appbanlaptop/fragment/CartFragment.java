@@ -45,5 +45,12 @@ public class CartFragment extends Fragment {
 
         return view;
     }
+    private double calculateTotalPrice(List<SearchFragment.LaptopProduct> products) {
+        double totalPrice = 0;
+        for (SearchFragment.LaptopProduct product : products) {
+            totalPrice += (product.getOldPrice()-product.getDiscount()) * product.getQuantity();
+        }
+        return totalPrice;
+    }
 }
 
