@@ -32,7 +32,6 @@ import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.example.appbanlaptop.R;
 import com.example.appbanlaptop.manager.CartManager;
-import com.example.appbanlaptop.manager.WishListManager;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -42,7 +41,6 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.Objects;
 
 public class SearchFragment extends Fragment {
 
@@ -219,18 +217,6 @@ public class SearchFragment extends Fragment {
         public double getDiscount() {
             return discount;
         }
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-            LaptopProduct that = (LaptopProduct) o;
-            return id == that.id;
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(id);
-        }
     }
 
     public static class LaptopProductAdapter extends ArrayAdapter<LaptopProduct> {
@@ -278,14 +264,8 @@ public class SearchFragment extends Fragment {
                 wishListButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        WishListManager wishListManager = WishListManager.getInstance();
-                        List<LaptopProduct> wishListItems = wishListManager.getWishListItems();
-                        if (!wishListItems.contains(product)) {
-                            wishListManager.addToWishList(product);
-                            Toast.makeText(getContext(), product.getName() + " đã được thêm vào danh sách yêu thích", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(getContext(), product.getName() + " đã có trong danh sách yêu thích", Toast.LENGTH_SHORT).show();
-                        }
+                        CartManager.getInstance().addToWishList(product);
+                        Toast.makeText(getContext(), product.getName() + " đã được thêm vào danh sách yêu thích", Toast.LENGTH_SHORT).show();
                     }
                 });
             }

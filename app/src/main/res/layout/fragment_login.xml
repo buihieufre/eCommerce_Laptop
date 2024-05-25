@@ -4,13 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    android:layout_gravity="center"
     tools:context=".fragment.LoginFragment">
     <LinearLayout
-
         android:orientation="vertical"
         android:padding="40dp"
-        android:gravity="start
-"
+        android:layout_gravity="center_horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <TextView

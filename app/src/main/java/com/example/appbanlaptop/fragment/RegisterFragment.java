@@ -1,12 +1,6 @@
 package com.example.appbanlaptop.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +9,10 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -80,10 +78,6 @@ public class RegisterFragment extends Fragment {
                                     getActivity()
                                             .getSupportFragmentManager()
                                             .beginTransaction()
-                                            .setCustomAnimations(
-                                                    R.anim.slide_in_left_login_register,
-                                                    R.anim.slide_out_right_login_register
-                                            )
                                             .replace(R.id.flFragement, loginFragment).commitAllowingStateLoss();
                                 }else {
                                     textViewError.setText(response);
@@ -124,11 +118,7 @@ public class RegisterFragment extends Fragment {
             public void onClick(View v) {
                 Fragment loginFragment = new LoginFragment();
                 FragmentTransaction fm = getActivity().getSupportFragmentManager().beginTransaction();
-                fm.setCustomAnimations(
-                        R.anim.slide_in_left_login_register,
-                        R.anim.slide_out_right_login_register
-                        )
-                        .replace(R.id.flFragement, loginFragment).commit();
+                fm.replace(R.id.flFragement, loginFragment).commit();
             }
         });
         return v;
