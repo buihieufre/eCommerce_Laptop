@@ -7,34 +7,53 @@ import android.graphics.LinearGradient;
 import android.graphics.Shader;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextPaint;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.GridView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.widget.Toolbar;
 
+import com.example.appbanlaptop.R;
+import com.example.appbanlaptop.adapter.ProductAdapter;
 import com.example.appbanlaptop.fragment.CartFragment;
+import com.example.appbanlaptop.fragment.HomeFragment;
 import com.example.appbanlaptop.fragment.LoginFragment;
 import com.example.appbanlaptop.fragment.RegisterFragment;
-import com.example.appbanlaptop.fragment.HomeFragment;
-import com.example.appbanlaptop.R;
 import com.example.appbanlaptop.fragment.SearchFragment;
 import com.example.appbanlaptop.fragment.WishListFragment;
+import com.example.appbanlaptop.modal.Product;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnItemSelectedListener {
+    LinearLayout linearLayout;
     DrawerLayout drawerLayout;
     Toolbar toolbar;
     NavigationView navigationView;
@@ -48,6 +67,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     LoginFragment loginFragment  = new LoginFragment();
 
     CartFragment CartFragment = new CartFragment();
+
+    private GridView gridView;
+    private static ProductAdapter adapter;
+    private static List<Product> productList;
     public int previousItemId = -1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,12 +84,74 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         bottomNavigationView.setOnItemSelectedListener(this);
         bottomNavigationView.setSelectedItemId(R.id.home);
         ActionBar();
-
+        gridView = findViewById(R.id.mainGridView);
+        productList=new ArrayList<>();
+        adapter = new ProductAdapter(this, productList);
+        gridView.setAdapter(adapter);
+        //lay data tu API
+        new FrechProductsTask().execute();
+        // Kết nối internet check
         if(isConnected(this)){
         }else{
             Toast.makeText(getApplicationContext(), "No internet, please connect", Toast.LENGTH_LONG).show();
         }
 
+    }
+
+    private class FrechProductsTask extends AsyncTask<Void,Void,String> {
+        //lay tu lieu tu api qua internet
+        @Override
+        protected String doInBackground(Void... voids) {
+            StringBuilder response = new StringBuilder(); //luu ket qua
+            try {
+                URL url = new URL("https://raw.githubusercontent.com/hieumai1507/api/main/data.json"); //url
+                //open connection
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                //set method for read data
+                connection.setRequestMethod("GET");
+                //tao bo dem de doc data
+                BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                //doc du lieu
+                String line="";
+                while ((line=reader.readLine())!=null) {
+                    //red until EOF
+                    response.append(line);
+                }
+                reader.close();
+            } catch (MalformedURLException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            return response.toString();
+        }
+        //tra ve du lieu
+        @Override
+        protected void onPostExecute(String s) {
+            if (s!=null && !s.isEmpty()) {
+                try {
+                    JSONObject json = new JSONObject(s);
+                    JSONArray productsArray = json.getJSONArray("product"); //get array for objects
+                    for (int i=0; i<productsArray.length(); i++) {
+                        JSONObject productObject=productsArray.getJSONObject(i);
+                        String ImageProduct = productObject.getString("anhsp");
+                        String NameProduct = productObject.getString("tensp");
+                        String RamProduct = "RAM: " + productObject.getString("ram");
+                        String SsdProduct = "SSD: " + productObject.getString("ssd");
+                        String OldPriceProduct = "COST: " + productObject.getString("giacu")+ "VND";
+                        String DiscountProduct = "DISCOUNT: "+ productObject.getString("discount") + "%off";
+                        Product product = new Product(ImageProduct, NameProduct, RamProduct, SsdProduct, OldPriceProduct, DiscountProduct);
+                        productList.add(product);
+                    }
+                    adapter.notifyDataSetChanged(); //update to adapter
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            else {
+                Toast.makeText(MainActivity.this, "Faile to fetch products!", Toast.LENGTH_LONG).show();
+            }
+        }
     }
     private boolean isConnected(Context context){
         ConnectivityManager connManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -103,7 +188,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         navigationView = findViewById(R.id.navView);
         drawerLayout = findViewById(R.id.drawerLayoutHome);
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
-
+        linearLayout = findViewById(R.id.mainLayout);
     }
 
 
@@ -127,6 +212,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         previousItemId = item.getItemId();
         int id = item.getItemId();
         if(id == R.id.home){
+            linearLayout.setVisibility(View.VISIBLE);
             item.setIcon(R.drawable.home_actived);
             getSupportFragmentManager()
                     .beginTransaction()
@@ -135,6 +221,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             return true;
         }
         else if (id == R.id.search){
+            linearLayout.setVisibility(View.GONE);
             item.setIcon(R.drawable.search_actived);
             getSupportFragmentManager()
                     .beginTransaction()
@@ -143,6 +230,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             return true;
         }
         else if (id == R.id.love){
+            linearLayout.setVisibility(View.GONE);
             item.setIcon(R.drawable.love_actived);
             getSupportFragmentManager()
                     .beginTransaction()
@@ -151,6 +239,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             return true;
         }
         else if (id == R.id.account){
+            linearLayout.setVisibility(View.GONE);
             item.setIcon(R.drawable.account_actived);
             getSupportFragmentManager()
                     .beginTransaction()
@@ -160,6 +249,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             return true;
         }
         else if (id == R.id.Cart){
+            linearLayout.setVisibility(View.GONE);
             item.setIcon(R.drawable.cart_icon);
             getSupportFragmentManager()
                     .beginTransaction()

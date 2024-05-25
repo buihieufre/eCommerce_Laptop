@@ -18,8 +18,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
-import com.example.appbanlaptop.manager.CartManager;
 import com.example.appbanlaptop.R;
+import com.example.appbanlaptop.manager.CartManager;
+
 import java.util.List;
 
 public class WishListFragment extends Fragment {

@@ -62,10 +62,7 @@ public class LoginFragment extends Fragment {
         if(sharedPreferences.getString("logged", "false").equals("true")){
             UserFragment userFragment = new UserFragment();
             FragmentTransaction fm = getActivity().getSupportFragmentManager().beginTransaction();
-            fm.setCustomAnimations(
-                    R.anim.slide_in_left_login_register,
-                    R.anim.slide_out_right_login_register
-            ).replace(R.id.flFragement, userFragment).commit();
+            fm.replace(R.id.flFragement, userFragment).commit();
         }
 
 
@@ -136,10 +133,7 @@ public class LoginFragment extends Fragment {
             public void onClick(View v) {
                 Fragment registerFragment = new RegisterFragment();
                 FragmentTransaction fm = getActivity().getSupportFragmentManager().beginTransaction();
-                fm.setCustomAnimations(
-                        R.anim.slide_in_left_login_register,
-                        R.anim.slide_out_right_login_register
-                ).replace(R.id.flFragement, registerFragment)
+                fm.replace(R.id.flFragement, registerFragment)
                         .commit();
             }
         });

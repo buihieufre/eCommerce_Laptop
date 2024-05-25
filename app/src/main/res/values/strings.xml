@@ -17,9 +17,9 @@
     <string name="ram">RAM: %1$s</string>
     <string name="add_to_cart">Thêm vào giỏ hàng</string>
     <string name="wish_list">Yêu thích</string>
-
-
-
+    <string name="cost">COST: %d</string>
+    <string name="discount">DISCOUNT: %d</string>
+    <string name="name">NAME</string>
 
 
 </resources>
