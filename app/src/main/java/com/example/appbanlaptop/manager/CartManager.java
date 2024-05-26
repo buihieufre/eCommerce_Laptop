@@ -50,4 +50,8 @@ public class CartManager {
     public List<SearchFragment.LaptopProduct> getWishList() {
         return wishList;
     }
+
+    public void removeFromCart(SearchFragment.LaptopProduct product) {
+        cart.remove(product);
+    }
 }
