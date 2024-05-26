@@ -16,7 +16,11 @@ import androidx.annotation.Nullable;
 import com.bumptech.glide.Glide;
 import com.example.appbanlaptop.R;
 import com.example.appbanlaptop.fragment.SearchFragment;
+<<<<<<< HEAD
 import com.google.gson.Gson;
+=======
+import com.example.appbanlaptop.manager.CartManager;
+>>>>>>> 4dd9d514ccf9ed9120c78f718ceba51ec72f6c2d
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,12 +74,16 @@ public class CartAdapter extends ArrayAdapter<SearchFragment.LaptopProduct> {
                 decreaseQuantityButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        // Thực hiện giảm số lượng sản phẩm
+                        // Giảm số lượng sản phẩm
                         int newQuantity = product.getQuantity() - 1;
-                        if (newQuantity >= 0) { // Đảm bảo số lượng không âm
+                        if (newQuantity >= 1) {
                             product.setQuantity(newQuantity);
-                            notifyDataSetChanged(); // Cập nhật lại giao diện
+                        } else {
+                            // Xóa sản phẩm nếu số lượng nhỏ hơn 1
+                            CartManager.getInstance().removeFromCart(product);
+                            remove(product);
                         }
+                        notifyDataSetChanged(); // Cập nhật lại giao diện
                     }
                 });
 
