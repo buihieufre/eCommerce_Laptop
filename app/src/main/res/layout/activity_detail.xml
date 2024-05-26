@@ -23,8 +23,9 @@
             android:layout_height="40dp">
 
             <ImageButton
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:id="@+id/backToHome"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_gravity="center_vertical|left"
                 android:background="#00000000"
                 android:src="@drawable/baseline_arrow_back_24"
@@ -45,6 +46,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <ImageView
                     android:id="@+id/detailImg"
                     android:layout_width="match_parent"
@@ -58,27 +60,43 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.075" />
 
-                <ImageButton
-                    android:id="@+id/btnFavorite"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_alignTop="@id/detailImg"
-                    android:layout_alignEnd="@id/detailImg"
-                    android:layout_marginTop="150dp"
-                    android:layout_marginEnd="20dp"
-                    android:background="@color/white"
-                    android:src="@drawable/heart_outline" />
+                <RelativeLayout
+                    android:padding="10dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <View
+                        android:id="@+id/view"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentBottom="true"
+                        android:background="@drawable/rounded_background"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp">
+                    </View>
+                    <ImageButton
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:padding="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_alignEnd="@+id/view"
+                        android:id="@+id/btnFavorite"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:background="#00000000"
+                        android:src="@drawable/heart_outline" />
+                </RelativeLayout>
             </RelativeLayout>
 
             <TextView
                 android:id="@+id/detailName"
-                android:layout_width="wrap_content"
+                android:layout_width="341dp"
                 android:layout_height="wrap_content"
-                android:text="NAME"
-                android:textSize="18dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="20dp"
+                android:text="NAME"
                 android:textColor="@color/black"
+                android:textSize="18dp"
                 android:textStyle="bold" />
 
             <LinearLayout
@@ -88,7 +106,7 @@
 
                 <TextView
                     android:id="@+id/detailRam"
-                    android:layout_width="80dp"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
@@ -111,199 +129,460 @@
             </LinearLayout>
 
             <TextView
+                android:textSize="10dp"
                 android:layout_marginTop="10dp"
                 android:id="@+id/detailOldprice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="COST"
-                android:textColor="#5AB2FF"
+                android:textColor="#444"
                 android:textStyle="bold"
                 android:layout_marginLeft="10dp"/>
 
             <TextView
+
                 android:layout_marginTop="10dp"
                 android:id="@+id/detailDiscount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="DISCOUNT"
-                android:textColor="#E72929"
+                android:textColor="#e83a45"
                 android:textStyle="bold"
                 android:layout_marginLeft="10dp"/>
             <LinearLayout
+                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_margin="10dp">
+                android:orientation="vertical">
                 <TextView
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
-                    android:layout_marginTop="10dp"
-                    android:id="@+id/detailCpu"
+                    android:text="Bộ xử lý"
+                    android:padding="5dp"
+                    android:textStyle="bold"
+                    android:textSize="24dp"
+                    android:background="#ccc"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="CPU"/>
+                    android:layout_height="wrap_content"/>
+                <LinearLayout
+                    android:padding="10dp"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:text="CPU: "
+                            android:textStyle="bold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <TextView
+                            android:id="@+id/detailCpu"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="CPU"/>
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:text="Số nhân: "
+                            android:textStyle="bold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <TextView
+                            android:id="@+id/detailSoNhan"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="SoNhan"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:text="Số luồng: "
+                            android:textStyle="bold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <TextView
+                            android:id="@+id/detailSoLuong"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="SoLuong"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:text="Tốc độ CPU: "
+                            android:textStyle="bold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <TextView
+                            android:id="@+id/detailTocDoCPU"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="TocDoCPU"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:text="Tốc độ tối đa: "
+                            android:textStyle="bold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <TextView
+                            android:id="@+id/detailTocDoToiDa"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="TocDoToiDa"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:text="Bộ nhớ đệm: "
+                            android:textStyle="bold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <TextView
+                            android:id="@+id/detailBoNhoDem"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="BoNhoDem"/>
+                    </LinearLayout>
+                </LinearLayout>
 
                 <TextView
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
-                    android:layout_marginTop="10dp"
-                    android:id="@+id/detailSoNhan"
+                    android:text="Bộ nhớ RAM, Ổ cứng"
+                    android:padding="5dp"
+                    android:textStyle="bold"
+                    android:textSize="24dp"
+                    android:background="#ccc"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="SoNhan"/>
+                    android:layout_height="wrap_content"/>
+                <LinearLayout
+                    android:padding="10dp"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:text="Loại RAM: "
+                            android:textStyle="bold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <TextView
+                            android:id="@+id/detailLoaiRAM"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="LoaiRAM"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:text="Tốc độ BUS RAM: "
+                            android:textStyle="bold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                        <TextView
+                            android:id="@+id/detailTocDoBusRAM"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="TocDoBusRAM"/>
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:text="Hỗ trợ RAM tối đa: "
+                            android:textStyle="bold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <TextView
+                            android:id="@+id/detailHoTroRAMToiDa"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="TocDoCPUHoTroRAMToiDa"/>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:text="Ổ cứng: "
+                            android:textStyle="bold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <TextView
+                            android:id="@+id/detailOCung"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="O Cung"/>
+                    </LinearLayout>
+
+                </LinearLayout>
 
                 <TextView
+                    android:text="Màn hình"
+                    android:padding="5dp"
+                    android:textStyle="bold"
+                    android:textSize="24dp"
+                    android:background="#ccc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+                <LinearLayout
+                    android:padding="10dp"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:text="Màn hình: "
+                            android:textStyle="bold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <TextView
+                            android:id="@+id/detailManHinh"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="ManHinh"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:text="Độ phân giải: "
+                            android:textStyle="bold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <TextView
+                            android:id="@+id/detailDoPhanGiai"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="DoPhanGiai"/>
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:text="Tần số quét: "
+                            android:textStyle="bold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <TextView
+                            android:id="@+id/detailTanSoQuet"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="TanSoQuet"/>
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:text="Công nghệ màn hình: "
+                            android:textStyle="bold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <TextView
+                            android:id="@+id/detailCNManHinh"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="CNManHinh"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+                <TextView
+                    android:text="Đồ họa"
+                    android:padding="5dp"
+                    android:textStyle="bold"
+                    android:textSize="24dp"
+                    android:background="#ccc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+                <LinearLayout
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp"
-                    android:layout_marginTop="10dp"
-                    android:id="@+id/detailSoLuong"
+                    android:gravity="center_vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="SoLuong"/>
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:text="Card màn hình: "
+                        android:textStyle="bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:id="@+id/detailCartManHinh"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="CartManHinh"/>
+                </LinearLayout>
+
 
                 <TextView
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
-                    android:layout_marginTop="10dp"
-                    android:id="@+id/detailTocDoCPU"
+                    android:text="Thông tin khác"
+                    android:padding="5dp"
+                    android:textStyle="bold"
+                    android:textSize="24dp"
+                    android:background="#ccc"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="TocDoCPU"/>
+                    android:layout_height="wrap_content"/>
+                <LinearLayout
+                    android:padding="10dp"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:text="Cổng giao tiếp: "
+                            android:textStyle="bold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
 
-                <TextView
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
-                    android:layout_marginTop="10dp"
-                    android:id="@+id/detailTocDoToiDa"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="TocDoToiDa"/>
+                        <TextView
+                            android:id="@+id/detailCongGiaoTiep"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="CongGiaoTiep"/>
+                    </LinearLayout>
 
-                <TextView
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
-                    android:layout_marginTop="10dp"
-                    android:id="@+id/detailBoNhoDem"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="BoNhoDem"/>
+                    <LinearLayout
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:text="Kết nối không dây: "
+                            android:textStyle="bold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
 
-                <TextView
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
-                    android:layout_marginTop="10dp"
-                    android:id="@+id/detailLoaiRAM"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="LoaiRAM"/>
+                        <TextView
+                            android:id="@+id/detailKetNoiKoDay"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="KetNoiKoDay"/>
+                    </LinearLayout>
 
-                <TextView
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
-                    android:layout_marginTop="10dp"
-                    android:id="@+id/detailTocDoBusRAM"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="TocDoBusRAM"/>
+                    <LinearLayout
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:text="Pin: "
+                            android:textStyle="bold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
 
-                <TextView
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
-                    android:layout_marginTop="10dp"
-                    android:id="@+id/detailHoTroRAMToiDa"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="TocDoCPUHoTroRAMToiDa"/>
+                        <TextView
+                            android:id="@+id/detailPin"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Pin"/>
+                    </LinearLayout>
 
-                <TextView
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
-                    android:layout_marginTop="10dp"
-                    android:id="@+id/detailOCung"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="O Cung"/>
+                    <LinearLayout
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:text="Công suất sạc: "
+                            android:textStyle="bold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
 
-                <TextView
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
-                    android:layout_marginTop="10dp"
-                    android:id="@+id/detailManHinh"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="ManHinh"/>
+                        <TextView
+                            android:id="@+id/detailCongSuatSac"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="CongSuatSac"/>
+                    </LinearLayout>
 
-                <TextView
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
-                    android:layout_marginTop="10dp"
-                    android:id="@+id/detailDoPhanGiai"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="DoPhanGiai"/>
-
-                <TextView
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
-                    android:layout_marginTop="10dp"
-                    android:id="@+id/detailTanSoQuet"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="TanSoQuet"/>
-
-                <TextView
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
-                    android:layout_marginTop="10dp"
-                    android:id="@+id/detailCNManHinh"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="CNManHinh"/>
-
-                <TextView
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
-                    android:layout_marginTop="10dp"
-                    android:id="@+id/detailCartManHinh"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="CartManHinh"/>
-
-                <TextView
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
-                    android:layout_marginTop="10dp"
-                    android:id="@+id/detailCongGiaoTiep"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="CongGiaoTiep"/>
-
-                <TextView
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
-                    android:layout_marginTop="10dp"
-                    android:id="@+id/detailKetNoiKoDay"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="KetNoiKoDay"/>
-
-                <TextView
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
-                    android:layout_marginTop="10dp"
-                    android:id="@+id/detailPin"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Pin"/>
-
-                <TextView
-                    android:paddingTop="10dp"
-                    android:paddingBottom="10dp"
-                    android:layout_marginTop="10dp"
-                    android:id="@+id/detailCongSuatSac"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="CongSuatSac"/>
+                </LinearLayout>
             </LinearLayout>
 
             <Button

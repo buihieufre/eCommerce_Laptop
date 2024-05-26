@@ -52,13 +52,10 @@ dependencies {
     implementation("com.github.akarnokd:rxjava3-retrofit-adapter:3.0.0")
     // Volley
     implementation ("com.android.volley:volley:1.2.1")
-<<<<<<< HEAD
     // Module servlet
     compileOnly("javax.servlet:javax.servlet-api:3.0.1")
 //    Springboot
-=======
 
     implementation("com.squareup.picasso:picasso:2.8")
     implementation("com.google.code.gson:gson:2.9.0")
->>>>>>> 12814295280eb5454a658d47032dbce7b9c50f4b
 }

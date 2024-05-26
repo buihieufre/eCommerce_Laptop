@@ -48,8 +48,10 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnItemSelectedListener {
@@ -138,8 +140,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                         String NameProduct = productObject.getString("tensp");
                         String RamProduct = "RAM: " + productObject.getString("ram");
                         String SsdProduct = "SSD: " + productObject.getString("ssd");
-                        String OldPriceProduct = "COST: " + productObject.getString("giacu")+ "VND";
-                        String DiscountProduct = "DISCOUNT: "+ productObject.getString("discount") + "%off";
+                        NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.GERMANY);
+                        String OldPriceProduct =numberFormat.format(Double.parseDouble(productObject.getString("giacu")))+ " đ";
+                        Float giamoi  = Float.parseFloat(productObject.getString("giacu"))*(1 + Float.parseFloat(productObject.getString("discount"))/100);
+                        String DiscountProduct = numberFormat.format(giamoi) + " đ";
                         Product product = new Product(ImageProduct, NameProduct, RamProduct, SsdProduct, OldPriceProduct, DiscountProduct);
                         productList.add(product);
                     }
