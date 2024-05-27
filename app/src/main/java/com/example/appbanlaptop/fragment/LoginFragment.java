@@ -33,6 +33,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class LoginFragment extends Fragment {
+    public static String getEmail(){
+        return EMAIL;
+    }
+    public static String EMAIL;
     EditText emailEdt;
     EditText passwordEdt;
     CheckBox rememberBtn;
@@ -54,7 +58,7 @@ public class LoginFragment extends Fragment {
         emailEdt = v.findViewById(R.id.emailLogin);
         passwordEdt = v.findViewById(R.id.passwordLogin);
         btnLogin = v.findViewById(R.id.loginBtn);
-        sharedPreferences = getContext().getSharedPreferences("APPBANLAPTOP", Context.MODE_PRIVATE);
+        sharedPreferences = getContext().getApplicationContext().getSharedPreferences("APPBANLAPTOP", Context.MODE_PRIVATE);
         if(sharedPreferences.getString("logged", "false").equals("true")){
             UserFragment userFragment = new UserFragment();
             FragmentTransaction fm = getActivity().getSupportFragmentManager().beginTransaction();
@@ -67,7 +71,6 @@ public class LoginFragment extends Fragment {
             public void onClick(View v) {
                 emailRes = String.valueOf(emailEdt.getText());
                 passwordRes = String.valueOf(passwordEdt.getText());
-                emailRes = String.valueOf(emailEdt.getText());
                 RequestQueue queue = Volley.newRequestQueue(getActivity().getApplicationContext());
                 String url ="https://buihieu204.000webhostapp.com/login.php";
 
@@ -82,12 +85,12 @@ public class LoginFragment extends Fragment {
                                     if(status.equals("success")){
                                         Toast.makeText(getContext(),response, Toast.LENGTH_LONG).show();
                                         nameRes = jsonObject.getString("name");
-                                        emailRes = jsonObject.getString("email");
+                                        String email = jsonObject.getString("email");
                                         apiKey = jsonObject.getString("apiKey");
                                         SharedPreferences.Editor editor = sharedPreferences.edit();
                                         editor.putString("logged", "true");
                                         editor.putString("name", nameRes);
-                                        editor.putString("email", emailRes);
+                                        editor.putString("email", email);
                                         editor.putString("apiKey", apiKey);
                                         editor.apply();
                                         UserFragment userFragment = new UserFragment();
@@ -101,7 +104,7 @@ public class LoginFragment extends Fragment {
 
                                     }
                                 } catch (JSONException e) {
-                                    throw new RuntimeException(e);
+                                    e.printStackTrace();
                                 }
                             }
                         }, new Response.ErrorListener() {

@@ -3,6 +3,7 @@ package com.example.appbanlaptop.fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,11 +30,15 @@ public class UserFragment extends Fragment {
     public UserFragment() {
         // Required empty public constructor
     }
-    TextView userName, email, phone;
+    TextView userName;
+    static TextView email;
+    TextView phone;
     Button btnLogout;
     SharedPreferences sharedPreferences;
     LoginFragment loginFragment;
     @Override
+
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -71,19 +76,15 @@ public class UserFragment extends Fragment {
                                     editor.putString("email", "");
                                     editor.putString("apiKey", "");
                                     editor.apply();
-                                    getActivity().runOnUiThread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            FragmentTransaction fm = getActivity().getSupportFragmentManager().beginTransaction();
-                                            fm.setCustomAnimations(
-                                                    R.anim.slide_in_left_login_register,
-                                                    R.anim.slide_out_right_login_register
-                                            ).replace(R.id.flFragement, loginFragment).commit();
-                                        }
-                                    });
+                                    FragmentTransaction fm = getActivity().getSupportFragmentManager().beginTransaction();
+                                    fm.setCustomAnimations(
+                                            R.anim.slide_in_left_login_register,
+                                            R.anim.slide_out_right_login_register
+                                    ).replace(R.id.flFragement, loginFragment).commit();
                                 }
                                 else{
                                     Toast.makeText(getContext(), response, Toast.LENGTH_SHORT).show();
+                                    Log.d("res",response);
                                 }
 
                             }
@@ -95,8 +96,8 @@ public class UserFragment extends Fragment {
                 }) {
                     protected Map<String, String> getParams() {
                         Map<String, String> paramV = new HashMap<>();
-                        paramV.put("apiKey", sharedPreferences.getString("apiKey", ""));
                         paramV.put("email", sharedPreferences.getString("email", ""));
+                        paramV.put("apiKey", sharedPreferences.getString("apiKey", ""));
                         return paramV;
                     }
                 };

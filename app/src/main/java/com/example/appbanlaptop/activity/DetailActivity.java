@@ -1,6 +1,7 @@
 package com.example.appbanlaptop.activity;
 
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -20,7 +21,7 @@ import com.example.appbanlaptop.retrofit.detailsLaptop;
 import com.squareup.picasso.Picasso;
 
 public class DetailActivity extends AppCompatActivity {
-
+    ImageButton backToHome;
     boolean isLiked = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,27 +67,28 @@ public class DetailActivity extends AppCompatActivity {
             tvNamePro.setText(product.getNameProduct());
             tvRamPro.setText(product.getRamProduct());
             tvSsdPro.setText(product.getSsdProduct());
-            tvOldPricePro.setText("COST: "+product.getOldPriceProduct());
-            tvDiscountPro.setText("DISCOUNT: "+product.getDiscountProduct());
-            tvCPUPro.setText("CPU: "+detail.getCpu());
-            tvSoNhanPro.setText("MULTIPLIER: "+detail.getSoNhan());
-            tvSoLuongPro.setText("QUANTITY: "+detail.getSoLuong());
-            tvTocDoCPUPro.setText("CPU SPEED: "+detail.getTocDoCpu());
-            tvTocDoToiDaPro.setText("MAXIMUM SPEED: "+detail.getTocDoToiDa());
-            tvBoNhoDemPro.setText("CACHING: "+detail.getBoNhoDem());
-            tvLoaiRAMPro.setText("RAM TYPE: "+detail.getLoaiRam());
-            tvTocDoBusRAMPro.setText("RAM BUS SPEED: "+detail.getTocDoBusRam());
-            tvHoTroRAMToiDaPro.setText("MAXIMUM RAM SUPPORT: "+detail.getHoTroRamToiDa());
-            tvOCungPro.setText("HARD DRIVE: "+detail.getoCung());
-            tvManHinhPro.setText("SCREEN: "+detail.getManHinh());
-            tvDoPhanGiaiPro.setText("RESOLUTION: "+detail.getDoPhanGiai());
-            tvTanSoQuetPro.setText("SCAN FREQUENCY: "+detail.getTanSoQuet());
-            tvCNManHinhPro.setText("DISPLAY TECHNOLOGY: "+detail.getCongNgheManHinh());
-            tvCartManHinhPro.setText("GRAPHIC CARD: "+detail.getCardManHinh());
+            tvOldPricePro.setText(product.getOldPriceProduct());
+            tvOldPricePro.setPaintFlags(tvOldPricePro.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+            tvDiscountPro.setText(product.getDiscountProduct());
+            tvCPUPro.setText(detail.getCpu());
+            tvSoNhanPro.setText(detail.getSoNhan());
+            tvSoLuongPro.setText(detail.getSoLuong());
+            tvTocDoCPUPro.setText(detail.getTocDoCpu());
+            tvTocDoToiDaPro.setText(detail.getTocDoToiDa());
+            tvBoNhoDemPro.setText(detail.getBoNhoDem());
+            tvLoaiRAMPro.setText(detail.getLoaiRam());
+            tvTocDoBusRAMPro.setText(detail.getTocDoBusRam());
+            tvHoTroRAMToiDaPro.setText(detail.getHoTroRamToiDa());
+            tvOCungPro.setText(detail.getoCung());
+            tvManHinhPro.setText(detail.getManHinh());
+            tvDoPhanGiaiPro.setText(detail.getDoPhanGiai());
+            tvTanSoQuetPro.setText(detail.getTanSoQuet());
+            tvCNManHinhPro.setText(detail.getCongNgheManHinh());
+            tvCartManHinhPro.setText(detail.getCardManHinh());
             tvCongGiaoTiepPro.setText(detail.getCongGiaoTiep());
-            tvKetNoiKoDayPro.setText("WIRELESS CONNECTIVITY: "+detail.getKetNoiKhongDay());
-            tvPinPro.setText("PIN: "+detail.getPin());
-            tvCongSuatSacPro.setText("CHARGING CAPACITY: "+detail.getCongSuatSac());
+            tvKetNoiKoDayPro.setText(detail.getKetNoiKhongDay());
+            tvPinPro.setText(detail.getPin());
+            tvCongSuatSacPro.setText(detail.getCongSuatSac());
         }
 
         // Set OnClickListener for the like button
@@ -108,6 +110,13 @@ public class DetailActivity extends AppCompatActivity {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
+        });
+        backToHome = findViewById(R.id.backToHome);
+        backToHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
         });
     }
 }

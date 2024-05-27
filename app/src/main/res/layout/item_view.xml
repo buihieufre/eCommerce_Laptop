@@ -49,26 +49,32 @@
 
     </LinearLayout>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/item_oldpriceProduct_textview"
-        android:text="@string/cost"
-        android:textColor="#5AB2FF"
-        android:textStyle="bold"
-        android:layout_marginTop="10dp"
+    <LinearLayout
         android:layout_marginLeft="10dp"
-        android:textSize="15dp"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/item_discountProduct_textview"
-        android:text="@string/discount"
-        android:textColor="#E72929"
-        android:textStyle="bold"
         android:layout_marginTop="20dp"
-        android:layout_marginLeft="10dp"
-        android:textSize="15dp" />
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/item_discountProduct_textview"
+            android:text="@string/discount"
+            android:textColor="#E72929"
+            android:textStyle="bold"
+            android:textSize="15dp" />
+
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/item_oldpriceProduct_textview"
+            android:text="@string/cost"
+            android:textColor="#444"
+            android:textStyle="bold"
+            android:textSize="11dp"/>
+    </LinearLayout>
 
 </LinearLayout>

@@ -2,6 +2,7 @@ package com.example.appbanlaptop.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,6 +71,7 @@ public class ProductAdapter extends BaseAdapter {
             holder.ramTv = convertView.findViewById(R.id.item_ramProduct_textview);
             holder.ssdTv = convertView.findViewById(R.id.item_ssdProduct_textview);
             holder.oldpriceTv = convertView.findViewById(R.id.item_oldpriceProduct_textview);
+            holder.oldpriceTv.setPaintFlags(holder.oldpriceTv.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
             holder.discountTv = convertView.findViewById(R.id.item_discountProduct_textview);
             //tao template for later
             convertView.setTag(holder);

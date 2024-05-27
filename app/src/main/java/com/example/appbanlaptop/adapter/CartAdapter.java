@@ -1,6 +1,7 @@
 package com.example.appbanlaptop.adapter;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +21,7 @@ import com.example.appbanlaptop.manager.CartManager;
 import java.util.List;
 
 public class CartAdapter extends ArrayAdapter<SearchFragment.LaptopProduct> {
-
+    SharedPreferences sharedPreferences;
     public CartAdapter(Context context, List<SearchFragment.LaptopProduct> products) {
         super(context, 0, products);
     }
