@@ -306,7 +306,7 @@ public class SearchFragment extends Fragment {
                                                 Toast.makeText(getContext(), "Success", Toast.LENGTH_SHORT).show();
 
                                             }else {
-                                                Toast.makeText(getContext(), "ERrOR: " + message, Toast.LENGTH_SHORT).show();
+//                                                Toast.makeText(getContext(), "ERrOR: " + message, Toast.LENGTH_SHORT).show();
 
                                             }
                                         } catch (JSONException e) {
@@ -360,7 +360,7 @@ public class SearchFragment extends Fragment {
                                                 Toast.makeText(getContext(), "Success", Toast.LENGTH_SHORT).show();
 
                                             }else {
-                                                Toast.makeText(getContext(), "ERrOR: " + message, Toast.LENGTH_SHORT).show();
+//                                                Toast.makeText(getContext(), "ERrOR: " + message, Toast.LENGTH_SHORT).show();
 
                                             }
                                         } catch (JSONException e) {

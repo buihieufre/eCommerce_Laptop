@@ -3,6 +3,7 @@ package com.example.appbanlaptop.fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -83,6 +84,7 @@ public class UserFragment extends Fragment {
                                 }
                                 else{
                                     Toast.makeText(getContext(), response, Toast.LENGTH_SHORT).show();
+                                    Log.d("res",response);
                                 }
 
                             }

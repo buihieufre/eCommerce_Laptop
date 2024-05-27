@@ -16,13 +16,8 @@ import androidx.annotation.Nullable;
 import com.bumptech.glide.Glide;
 import com.example.appbanlaptop.R;
 import com.example.appbanlaptop.fragment.SearchFragment;
-<<<<<<< HEAD
-import com.google.gson.Gson;
-=======
 import com.example.appbanlaptop.manager.CartManager;
->>>>>>> 4dd9d514ccf9ed9120c78f718ceba51ec72f6c2d
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CartAdapter extends ArrayAdapter<SearchFragment.LaptopProduct> {
