@@ -1,5 +1,6 @@
 package com.example.appbanlaptop.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,11 +41,11 @@ public class CartFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // Thực hiện các bước thanh toán
-                // Ví dụ: chuyển sang màn hình thanh toán, xóa giỏ hàng, v.v.
+                Intent intent = new Intent(getContext(), PayFragment.class);
+                startActivity(intent);
             }
         });
 
         return view;
     }
 }
-
