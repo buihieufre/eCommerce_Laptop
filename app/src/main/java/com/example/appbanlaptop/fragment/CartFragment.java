@@ -2,6 +2,7 @@ package com.example.appbanlaptop.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import com.example.appbanlaptop.R;
 import com.example.appbanlaptop.adapter.CartAdapter;
 import com.example.appbanlaptop.manager.CartManager;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CartFragment extends Fragment {
@@ -40,8 +42,9 @@ public class CartFragment extends Fragment {
         checkoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Thực hiện các bước thanh toán
+                // Truyền dữ liệu sản phẩm qua PayFragment
                 Intent intent = new Intent(getContext(), PayFragment.class);
+                intent.putParcelableArrayListExtra("cartItems", (ArrayList<? extends Parcelable>) new ArrayList<>(cart));
                 startActivity(intent);
             }
         });

@@ -19,6 +19,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".fragment.BillFragment"
+            android:exported="false" />
+        <activity
             android:name=".fragment.PayFragment"
             android:exported="false" />
         <activity

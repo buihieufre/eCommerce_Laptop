@@ -20,6 +20,10 @@
     <string name="cost">COST: %d</string>
     <string name="discount">DISCOUNT: %d</string>
     <string name="name">NAME</string>
+    <string name="pricen_format">Giá: $%.2f</string>
+
+
+    <string name="quantity_format">Số lượng: %d</string>
 
 
 </resources>
