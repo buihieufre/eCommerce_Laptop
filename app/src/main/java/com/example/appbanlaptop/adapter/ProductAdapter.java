@@ -123,12 +123,6 @@ public class ProductAdapter extends BaseAdapter {
                                 }
                                 try {
                                     productdetail = jsonArray.getJSONObject(position);
-//                                    detailproduct.setAnhsp(productdetail.getString("anhsp"));
-//                                    detailproduct.setTensp(productdetail.getString("tensp"));
-//                                    detailproduct.setRam(productdetail.getString("ram"));
-//                                    detailproduct.setSsd(productdetail.getString("ssd"));
-//                                    detailproduct.setGiacu(productdetail.getString("giacu"));
-//                                    detailproduct.setDiscount(productdetail.getString("discount"));
                                     detailproduct.setCpu(productdetail.getString("cpu"));
                                     detailproduct.setSoNhan(productdetail.getString("soNhan"));
                                     detailproduct.setSoLuong(productdetail.getString("soLuong"));

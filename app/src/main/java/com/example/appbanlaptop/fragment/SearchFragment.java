@@ -30,22 +30,26 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.example.appbanlaptop.R;
 import com.example.appbanlaptop.manager.CartManager;
 import com.example.appbanlaptop.manager.WishListManager;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.Set;
 
 public class SearchFragment extends Fragment {
 
@@ -273,119 +277,60 @@ public class SearchFragment extends Fragment {
                 addToCartButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        CartManager.getInstance().addToCart(product);
-                        // Insert into database -- adđ to cart item
-
-                        RequestQueue queue = Volley.newRequestQueue(getContext());
-                        String url ="https://buihieu204.000webhostapp.com/insertProduct.php";
-                        sharedPreferences = getContext().getApplicationContext().getSharedPreferences("APPBANLAPTOP", Context.MODE_PRIVATE);
-                        JSONObject postData = new JSONObject();
-
-                        try {
-                                postData.put("emailUser", sharedPreferences.getString("email", "false"));
-                                Log.d("Emai là: ",postData.getString("emailUser"));
-                                postData.put("itemId", String.valueOf(product.getId()) );
-                                postData.put("itemName", String.valueOf(product.getName()) );
-                                postData.put("itemUrl",product.getImageUrl());
-                                postData.put("oldprice",String.valueOf(product.getOldPrice()));
-                                postData.put("discount",String.valueOf(product.getDiscount()));
-                                postData.put("quantity",String.valueOf(product.getQuantity()));
-
-                        } catch (JSONException e) {
-                            throw new RuntimeException(e);
-                        }
-
-                        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, postData,
-                                new Response.Listener<JSONObject>() {
-                                    @Override
-                                    public void onResponse(JSONObject jso) {
-                                        try {
-                                            String status = jso.getString("status");
-                                            String message = jso.getString("message");
-                                            if(status.equals("success")){
-                                                Toast.makeText(getContext(), "Success", Toast.LENGTH_SHORT).show();
-
-                                            }else {
-//                                                Toast.makeText(getContext(), "ERrOR: " + message, Toast.LENGTH_SHORT).show();
-
-                                            }
-                                        } catch (JSONException e) {
-                                            throw new RuntimeException(e);
-                                        }
-                                    }
-                                }, new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError volleyError) {
-
-                            }
-                        }
-                        );
-                        queue.add(jsonObjectRequest);
+                        CartManager.getInstance(getContext().getApplicationContext()).addToCart(product);
                         Toast.makeText(getContext(), product.getName() + " đã được thêm vào giỏ hàng", Toast.LENGTH_SHORT).show();
+                        try {
+                            CartManager.getInstance(getContext().getApplicationContext()).addToWishList(product);
+                            SharedPreferences sharedPreferences1 = getContext().getSharedPreferences(CartManager.getProductList(), Context.MODE_PRIVATE);
+                            String json = sharedPreferences1.getString("product_cart_list", "");
+                            Type type = new TypeToken<List<LaptopProduct>>(){}.getType();
+                            List<SearchFragment.LaptopProduct> productList = new Gson().fromJson(json, type);
+                            for(SearchFragment.LaptopProduct laptopProduct: productList){
+                                Log.d("ITEM CART", laptopProduct.getName() );
+                            }
+
+                        }
+                        catch (Exception e){
+                            e.printStackTrace();
+                        }
+
                     }
                 });
 
                 wishListButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        CartManager.getInstance().addToWishList(product);
-                        RequestQueue queue = Volley.newRequestQueue(getContext());
-                        String url ="https://buihieu204.000webhostapp.com/insertLoveList.php";
-                        sharedPreferences = getContext().getApplicationContext().getSharedPreferences("APPBANLAPTOP", Context.MODE_PRIVATE);
-                        JSONObject postData = new JSONObject();
-
-                        try {
-                            postData.put("emailUser", sharedPreferences.getString("email", "false"));
-                            postData.put("itemId", String.valueOf(product.getId()) );
-                            postData.put("itemName", String.valueOf(product.getName()) );
-                            postData.put("itemUrl",product.getImageUrl());
-                            postData.put("oldprice",String.valueOf(product.getOldPrice()));
-                            postData.put("discount",String.valueOf(product.getDiscount()));
-                            postData.put("ram",String.valueOf(product.getRam()));
-                            postData.put("ssd",String.valueOf(product.getSsd()));
-
-
-                        } catch (JSONException e) {
-                            throw new RuntimeException(e);
-                        }
-
-                        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, postData,
-                                new Response.Listener<JSONObject>() {
-                                    @Override
-                                    public void onResponse(JSONObject jso) {
-                                        try {
-                                            String status = jso.getString("status");
-                                            String message = jso.getString("message");
-                                            if(status.equals("success")){
-                                                Toast.makeText(getContext(), "Success", Toast.LENGTH_SHORT).show();
-
-                                            }else {
-//                                                Toast.makeText(getContext(), "ERrOR: " + message, Toast.LENGTH_SHORT).show();
-
-                                            }
-                                        } catch (JSONException e) {
-                                            throw new RuntimeException(e);
-                                        }
-                                    }
-                                }, new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError volleyError) {
-
-                            }
-                        }
-                        );
-                        queue.add(jsonObjectRequest);
-                        Toast.makeText(getContext(), product.getName() + " đã được thêm vào danh sách yêu thích", Toast.LENGTH_SHORT).show();
-                        WishListManager wishListManager = WishListManager.getInstance();
+                        WishListManager wishListManager = WishListManager.getInstance(getContext().getApplicationContext());
                         List<LaptopProduct> wishListItems = wishListManager.getWishListItems();
                         if (!wishListItems.contains(product)) {
                             wishListManager.addToWishList(product);
-                            Toast.makeText(getContext(), product.getName() + " đã được thêm vào danh sách yêu thích", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), "Đã được thêm vào danh sách yêu thích", Toast.LENGTH_SHORT).show();
                         } else {
-                            Toast.makeText(getContext(), product.getName() + " đã có trong danh sách yêu thích", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), "Đã có trong danh sách yêu thích", Toast.LENGTH_SHORT).show();
+                        }
+                        try {
+                            CartManager.getInstance(getContext().getApplicationContext()).addToWishList(product);
+                            SharedPreferences sharedPreferences1 = getContext().getSharedPreferences(WishListManager.getProductListName(), Context.MODE_PRIVATE);
+                            Set<String> jsonSet = sharedPreferences1.getStringSet("product_set", new HashSet<>());
+
+                            Set<SearchFragment.LaptopProduct> productSet = new HashSet<>();
+                            Gson gson = new Gson();
+                            for (String json : jsonSet) {
+                                SearchFragment.LaptopProduct product = gson.fromJson(json, SearchFragment.LaptopProduct.class);
+                                productSet.add(product);
+                            }
+                            List<SearchFragment.LaptopProduct> productList = new ArrayList<>(productSet);
+                            for(SearchFragment.LaptopProduct laptopProduct: productList){
+                                Log.d("ITEM LOG", laptopProduct.getName() );
+                            }
+
+                        }
+                        catch (Exception e){
+                            e.printStackTrace();
                         }
                     }
                 });
+
             }
 
             return convertView;

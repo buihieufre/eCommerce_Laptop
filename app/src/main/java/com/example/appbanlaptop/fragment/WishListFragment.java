@@ -35,7 +35,7 @@ public class WishListFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_wishlist, container, false);
         listView = view.findViewById(R.id.listViewWishList);
 
-        List<SearchFragment.LaptopProduct> wishList = WishListManager.getInstance().getWishListItems();
+        List<SearchFragment.LaptopProduct> wishList = WishListManager.getInstance(getContext().getApplicationContext()).getWishListItems();
         adapter = new WishListAdapter(requireContext(), wishList);
         listView.setAdapter((ListAdapter) adapter);
 
@@ -72,7 +72,7 @@ public class WishListFragment extends Fragment {
                 addToCartButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        CartManager.getInstance().addToCart(product);
+                        CartManager.getInstance(getContext().getApplicationContext()).addToCart(product);
                         Toast.makeText(getContext(), product.getName() + " đã được thêm vào giỏ hàng", Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -80,7 +80,7 @@ public class WishListFragment extends Fragment {
                 removeButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        WishListManager.getInstance().removeFromWishList(product);
+                        WishListManager.getInstance(getContext().getApplicationContext()).removeFromWishList(product);
                         adapter.remove(product);
                         notifyDataSetChanged();
                     }
