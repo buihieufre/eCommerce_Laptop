@@ -32,7 +32,7 @@ public class CartFragment extends Fragment {
         checkoutButton = view.findViewById(R.id.checkoutButton);
 
         // Khởi tạo danh sách sản phẩm giỏ hàng và adapter
-        List<SearchFragment.LaptopProduct> cart = CartManager.getInstance().getCart();
+        List<SearchFragment.LaptopProduct> cart = CartManager.getInstance(getContext().getApplicationContext()).getCart();
         adapter = new CartAdapter(requireContext(), cart);
         listView.setAdapter(adapter);
 

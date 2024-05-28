@@ -11,7 +11,7 @@
     <string name="error_while_register">Error while register</string>
 
 
-    <string name="price_format">Giá cũ: $%.2f</string>
+    <string name="price_format">Giá cũ: %.2f</string>
     <string name="discount_format">Giảm giá: %.0f%% off</string>
     <string name="ssd">SSD: %1$s</string>
     <string name="ram">RAM: %1$s</string>

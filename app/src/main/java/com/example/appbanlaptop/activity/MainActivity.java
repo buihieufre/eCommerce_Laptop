@@ -13,8 +13,10 @@ import android.os.Bundle;
 import android.text.TextPaint;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +36,8 @@ import com.example.appbanlaptop.fragment.LoginFragment;
 import com.example.appbanlaptop.fragment.RegisterFragment;
 import com.example.appbanlaptop.fragment.SearchFragment;
 import com.example.appbanlaptop.fragment.WishListFragment;
+import com.example.appbanlaptop.manager.CartManager;
+import com.example.appbanlaptop.manager.WishListManager;
 import com.example.appbanlaptop.modal.Product;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
@@ -74,6 +78,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     private static ProductAdapter adapter;
     private static List<Product> productList;
     public int previousItemId = -1;
+
+    private  FrameLayout loadingView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,6 +104,34 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             Toast.makeText(getApplicationContext(), "No internet, please connect", Toast.LENGTH_LONG).show();
         }
 
+        // Load dữ lieu vao wishmanager
+        WishListManager wishListManager = WishListManager.getInstance(getApplicationContext());
+        CartManager cartManager = CartManager.getInstance(getApplicationContext());
+        wishListManager.loadWishListFromSharedPreferences();
+        cartManager.loadCartListFromSharedPreferences();
+
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        showLoading();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        hideLoading();
+    }
+
+    private void showLoading() {
+        loadingView.setVisibility(View.VISIBLE);
+        ProgressBar progressBar=  loadingView.findViewById(R.id.progress_bar);
+        progressBar.setProgress(75);
+        loadingView.bringToFront();
+    }
+
+    private void hideLoading() {
+        loadingView.setVisibility(View.GONE);
     }
 
     private class FrechProductsTask extends AsyncTask<Void,Void,String> {
@@ -193,6 +227,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         drawerLayout = findViewById(R.id.drawerLayoutHome);
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
         linearLayout = findViewById(R.id.mainLayout);
+        loadingView = findViewById(R.id.loadingView);
     }
 
 

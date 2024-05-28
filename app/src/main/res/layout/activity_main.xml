@@ -12,7 +12,11 @@
     android:isScrollContainer="false"
     tools:context=".activity.MainActivity"
     >
-
+    <include
+        android:id="@+id/loadingView"
+        android:visibility="gone"
+        layout="@layout/loading_layout"
+        />
     <androidx.drawerlayout.widget.DrawerLayout
         android:id="@+id/drawerLayoutHome"
         android:layout_width="match_parent"
