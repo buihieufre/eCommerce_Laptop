@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -172,7 +174,7 @@ public class SearchFragment extends Fragment {
         }
     }
 
-    public static class LaptopProduct {
+    public static class LaptopProduct implements Parcelable {
         private int id;
         private String name;
         private String imageUrl;
@@ -192,6 +194,47 @@ public class SearchFragment extends Fragment {
             this.discount = discount;
             this.quantity = 1; // Mặc định số lượng là 1
         }
+
+        protected LaptopProduct(Parcel in) {
+            id = in.readInt();
+            name = in.readString();
+            imageUrl = in.readString();
+            ssd = in.readString();
+            ram = in.readString();
+            oldPrice = in.readDouble();
+            discount = in.readDouble();
+            quantity = in.readInt();
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeInt(id);
+            dest.writeString(name);
+            dest.writeString(imageUrl);
+            dest.writeString(ssd);
+            dest.writeString(ram);
+            dest.writeDouble(oldPrice);
+            dest.writeDouble(discount);
+            dest.writeInt(quantity);
+        }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        public static final Creator<LaptopProduct> CREATOR = new Creator<LaptopProduct>() {
+            @Override
+            public LaptopProduct createFromParcel(Parcel in) {
+                return new LaptopProduct(in);
+            }
+
+            @Override
+            public LaptopProduct[] newArray(int size) {
+                return new LaptopProduct[size];
+            }
+        };
+
         public int getQuantity() {
             return quantity;
         }
