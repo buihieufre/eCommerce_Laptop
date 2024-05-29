@@ -1,5 +1,6 @@
 package com.example.appbanlaptop.fragment;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -8,6 +9,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,15 +32,21 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class UserFragment extends Fragment {
+
     public UserFragment() {
         // Required empty public constructor
     }
     TextView userName;
     static TextView email;
     TextView phone;
-    Button btnLogout;
+    Button btnOverview, btnAccount, btnOrders, btnSetting, btnLogout;
     SharedPreferences sharedPreferences;
     LoginFragment loginFragment;
+    ImageView imageAvt;
+    LinearLayout account_user;
+
+    ImageButton btnDrop;
+    @SuppressLint("MissingInflatedId")
     @Override
 
 
@@ -44,8 +55,16 @@ public class UserFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_user, container, false);
         btnLogout = v.findViewById(R.id.btnLogout);
+        btnOverview = v.findViewById(R.id.btnOverview);
+        btnAccount = v.findViewById(R.id.btnAccount);
+        btnOrders = v.findViewById(R.id.btnOrders);
+        btnSetting = v.findViewById(R.id.btnSetting);
+        btnDrop = v.findViewById(R.id.btnDrop);
+        imageAvt = v.findViewById(R.id.avtImg);
         userName = v.findViewById(R.id.user_name);
+        account_user = v.findViewById(R.id.accountUser);
         email = v.findViewById(R.id.user_email);
+        account_user.setVisibility(View.GONE);
         loginFragment = new LoginFragment();
         sharedPreferences = getContext().getSharedPreferences("APPBANLAPTOP", Context.MODE_PRIVATE);
         if (sharedPreferences.getString("logged", "false").equals("false")) {
@@ -101,6 +120,31 @@ public class UserFragment extends Fragment {
                 queue.add(stringRequest);
             }
         });
+
+        btnAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (account_user.getVisibility() == View.GONE) {
+                    account_user.setVisibility(View.VISIBLE);
+                }
+                else {
+                    account_user.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        btnDrop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (account_user.getVisibility() == View.GONE) {
+                    account_user.setVisibility(View.VISIBLE);
+                }
+                else {
+                    account_user.setVisibility(View.GONE);
+                }
+            }
+        });
+
         return v;
     }
 }
