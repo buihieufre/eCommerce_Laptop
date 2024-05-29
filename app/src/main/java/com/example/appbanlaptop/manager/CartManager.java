@@ -112,7 +112,14 @@ public class CartManager {
         saveProductCartList(context, productList);
     }
 
-
+    public boolean isProductInCart(int productId) {
+        for (SearchFragment.LaptopProduct product : cart) {
+            if (product.getId() == productId) {
+                return true;
+            }
+        }
+        return false;
+    }
     public static synchronized CartManager getInstance(Context context) {
         if (instance == null) {
             instance = new CartManager(context);

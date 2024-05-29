@@ -1,10 +1,13 @@
 package com.example.appbanlaptop.adapter;
 
 import android.content.Context;
+import android.graphics.Paint;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -16,7 +19,9 @@ import com.bumptech.glide.Glide;
 import com.example.appbanlaptop.R;
 import com.example.appbanlaptop.fragment.SearchFragment;
 
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class CartAdapter extends ArrayAdapter<SearchFragment.LaptopProduct> {
 
@@ -41,12 +46,18 @@ public class CartAdapter extends ArrayAdapter<SearchFragment.LaptopProduct> {
         ImageButton increaseQuantityButton = convertView.findViewById(R.id.increaseQuantityButton);
         ImageButton decreaseQuantityButton = convertView.findViewById(R.id.decreaseQuantityButton);
         ImageButton removeButton = convertView.findViewById(R.id.removeButton);
+        CheckBox checkBox = convertView.findViewById(R.id.checkToBuy);
+        checkBox.setChecked(false);
 
         if (product != null) {
             Glide.with(getContext()).load(product.getImageUrl()).into(imageView);
             nameTextView.setText(product.getName());
-            oldPriceTextView.setText(getContext().getString(R.string.price_format, product.getOldPrice()));
-            discountTextView.setText(getContext().getString(R.string.discount_format, product.getDiscount()));
+            NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.GERMANY);
+            String giacu = numberFormat.format(product.getOldPrice())+ " đ";
+            String giamoi = numberFormat.format(product.getOldPrice()*(1+product.getDiscount()/100)) +" đ";
+            oldPriceTextView.setText(giacu);
+            oldPriceTextView.setPaintFlags(oldPriceTextView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+            discountTextView.setText(giamoi);
             quantityTextView.setText(String.valueOf(product.getQuantity()));
 
             increaseQuantityButton.setOnClickListener(new View.OnClickListener() {

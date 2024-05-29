@@ -1,6 +1,7 @@
 package com.example.appbanlaptop.adapter;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,8 +36,11 @@ public class WishListAdapter extends ArrayAdapter<SearchFragment.LaptopProduct> 
         if (product != null) {
             Glide.with(getContext()).load(product.getImageUrl()).into(imageView);
             nameTextView.setText(product.getName());
+
+            
             oldPriceTextView.setText("Giá cũ: " + String.format(getContext().getString(R.string.price_format), product.getOldPrice()));
-            discountTextView.setText("Giảm giá: " + String.format(getContext().getString(R.string.discount_format), product.getDiscount()));
+            oldPriceTextView.setPaintFlags(oldPriceTextView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+            discountTextView.setText("Giảm giá: " + String.format(getContext().getString(R.string.discount_format), product.getOldPrice()*(1+product.getDiscount()/100)));
         }
 
         return convertView;

@@ -1,6 +1,7 @@
 package com.example.appbanlaptop.fragment;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +23,9 @@ import com.example.appbanlaptop.manager.CartManager;
 import com.example.appbanlaptop.R;
 import com.example.appbanlaptop.manager.WishListManager;
 
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class WishListFragment extends Fragment {
 
@@ -66,8 +69,12 @@ public class WishListFragment extends Fragment {
             if (product != null) {
                 Glide.with(getContext()).load(product.getImageUrl()).into(imageView);
                 nameTextView.setText(product.getName());
-                oldPriceTextView.setText(getContext().getString(R.string.price_format, product.getOldPrice()));
-                discountTextView.setText(getContext().getString(R.string.discount_format, product.getDiscount()));
+                NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.GERMANY);
+                String giacu = numberFormat.format(product.getOldPrice()) + " đ";
+                String giamoi = numberFormat.format(product.getOldPrice()*(1+product.getDiscount()/100)) +" đ";
+                oldPriceTextView.setText(giacu);
+                oldPriceTextView.setPaintFlags(oldPriceTextView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                discountTextView.setText(giamoi);
 
                 addToCartButton.setOnClickListener(new View.OnClickListener() {
                     @Override

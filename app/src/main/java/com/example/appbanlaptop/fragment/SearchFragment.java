@@ -3,6 +3,7 @@ package com.example.appbanlaptop.fragment;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -46,6 +47,7 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -195,6 +197,7 @@ public class SearchFragment extends Fragment {
             this.quantity = 1; // Mặc định số lượng là 1
         }
 
+        public LaptopProduct() {}
         protected LaptopProduct(Parcel in) {
             id = in.readInt();
             name = in.readString();
@@ -242,6 +245,7 @@ public class SearchFragment extends Fragment {
         public void setQuantity(int quantity) {
             this.quantity = quantity;
         }
+
         public int getId() {
             return id;
         }
@@ -281,9 +285,37 @@ public class SearchFragment extends Fragment {
         public int hashCode() {
             return Objects.hash(id);
         }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public void setImageUrl(String imageUrl) {
+            this.imageUrl = imageUrl;
+        }
+
+        public void setSsd(String ssd) {
+            this.ssd = ssd;
+        }
+
+        public void setRam(String ram) {
+            this.ram = ram;
+        }
+
+        public void setOldPrice(double oldPrice) {
+            this.oldPrice = oldPrice;
+        }
+
+        public void setDiscount(double discount) {
+            this.discount = discount;
+        }
     }
 
-    public static class LaptopProductAdapter extends ArrayAdapter<LaptopProduct> {
+    public class LaptopProductAdapter extends ArrayAdapter<LaptopProduct> {
         private List<LaptopProduct> filteredList;
 
         public LaptopProductAdapter(@NonNull Context context, @NonNull List<LaptopProduct> products) {
@@ -312,11 +344,20 @@ public class SearchFragment extends Fragment {
             if (product != null) {
                 Glide.with(getContext()).load(product.getImageUrl()).into(imageView);
                 nameTextView.setText(product.getName());
-                oldPriceTextView.setText(getContext().getString(R.string.price_format, product.getOldPrice()));
-                discountTextView.setText(getContext().getString(R.string.discount_format, product.getDiscount()));
+                NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.GERMANY);
+                String giacu = numberFormat.format(product.getOldPrice()) + " đ";
+                String giamoi = numberFormat.format(product.getOldPrice()*(1+product.getDiscount()/100)) + " đ";
+                oldPriceTextView.setText(giacu);
+                oldPriceTextView.setPaintFlags(oldPriceTextView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                discountTextView.setText(giamoi);
                 ramTextView.setText(getContext().getString(R.string.ram, product.getRam()));
                 ssdTextView.setText(getContext().getString(R.string.ssd, product.getSsd()));
-
+                imageView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        int id = product.getId();
+                    }
+                });
                 addToCartButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -375,7 +416,12 @@ public class SearchFragment extends Fragment {
                 });
 
             }
+            convertView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
+                }
+            });
             return convertView;
         }
 

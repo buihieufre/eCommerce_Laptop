@@ -94,6 +94,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         ActionBar();
         gridView = findViewById(R.id.mainGridView);
         productList=new ArrayList<>();
+        // Set adpter
         adapter = new ProductAdapter(this, productList);
         gridView.setAdapter(adapter);
         //lay data tu API
@@ -170,6 +171,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                     JSONArray productsArray = json.getJSONArray("product"); //get array for objects
                     for (int i=0; i<productsArray.length(); i++) {
                         JSONObject productObject=productsArray.getJSONObject(i);
+                        String ImageId = productObject.getString("id");
                         String ImageProduct = productObject.getString("anhsp");
                         String NameProduct = productObject.getString("tensp");
                         String RamProduct = "RAM: " + productObject.getString("ram");
@@ -178,7 +180,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                         String OldPriceProduct =numberFormat.format(Double.parseDouble(productObject.getString("giacu")))+ " đ";
                         Float giamoi  = Float.parseFloat(productObject.getString("giacu"))*(1 + Float.parseFloat(productObject.getString("discount"))/100);
                         String DiscountProduct = numberFormat.format(giamoi) + " đ";
-                        Product product = new Product(ImageProduct, NameProduct, RamProduct, SsdProduct, OldPriceProduct, DiscountProduct);
+                        Product product = new Product(ImageId,ImageProduct, NameProduct, RamProduct, SsdProduct, OldPriceProduct, DiscountProduct);
                         productList.add(product);
                     }
                     adapter.notifyDataSetChanged(); //update to adapter
@@ -223,7 +225,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     private void AnhXa(){
         toolbar = findViewById(R.id.toolbar);
-        navigationView = findViewById(R.id.navView);
+//        navigationView = findViewById(R.id.navView);
         drawerLayout = findViewById(R.id.drawerLayoutHome);
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
         linearLayout = findViewById(R.id.mainLayout);

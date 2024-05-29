@@ -77,10 +77,7 @@ public class UserFragment extends Fragment {
                                     editor.putString("apiKey", "");
                                     editor.apply();
                                     FragmentTransaction fm = getActivity().getSupportFragmentManager().beginTransaction();
-                                    fm.setCustomAnimations(
-                                            R.anim.slide_in_left_login_register,
-                                            R.anim.slide_out_right_login_register
-                                    ).replace(R.id.flFragement, loginFragment).commit();
+                                    fm.replace(R.id.flFragement, loginFragment).commit();
                                 }
                                 else{
                                     Toast.makeText(getContext(), response, Toast.LENGTH_SHORT).show();

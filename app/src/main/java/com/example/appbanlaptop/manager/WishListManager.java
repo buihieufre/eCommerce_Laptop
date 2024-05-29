@@ -87,7 +87,6 @@ public class WishListManager {
                 break;
             }
         }
-
         saveProductWishList(context, productSet);
     }
 
@@ -96,6 +95,16 @@ public class WishListManager {
         productSet.add(product);
         saveProductWishList(context, productSet);
     }
+    public boolean isProductInWishList(Context context, SearchFragment.LaptopProduct product) {
+        Set<SearchFragment.LaptopProduct> wishList = getProductWishList(context);
+        for (SearchFragment.LaptopProduct p : wishList) {
+            if (p.getId() == product.getId()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
 
     private WishListManager() {

@@ -3,16 +3,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:isScrollContainer="true"
     tools:context=".fragment.CartFragment">
 
     <!-- ListView hiển thị các mục sản phẩm trong giỏ hàng -->
+
+    <!-- Button layout cho các chức năng -->
     <ListView
         android:id="@+id/listViewCart"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_height="630dp" />
 
-    <!-- Button layout cho các chức năng -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
