@@ -83,7 +83,6 @@ public class LoginFragment extends Fragment {
                                     String status = jsonObject.getString("status");
                                     String message = jsonObject.getString("message");
                                     if(status.equals("success")){
-                                        Toast.makeText(getContext(),response, Toast.LENGTH_LONG).show();
                                         nameRes = jsonObject.getString("name");
                                         String email = jsonObject.getString("email");
                                         apiKey = jsonObject.getString("apiKey");

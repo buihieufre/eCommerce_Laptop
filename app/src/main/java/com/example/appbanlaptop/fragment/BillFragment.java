@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 import com.example.appbanlaptop.R;
+import com.example.appbanlaptop.activity.MainActivity;
 
 import java.util.ArrayList;
 
@@ -74,5 +75,11 @@ public class BillFragment extends AppCompatActivity {
     }
 
 
+    @Override
+    protected void onStop() {
+        Intent intent = new Intent(BillFragment.this, MainActivity.class);
+        startActivity(intent);
+        super.onStop();
+    }
 
 }

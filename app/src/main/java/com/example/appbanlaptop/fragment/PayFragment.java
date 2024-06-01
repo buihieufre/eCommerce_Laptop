@@ -27,6 +27,7 @@ import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.example.appbanlaptop.R;
 import com.example.appbanlaptop.adapter.PaymentProductAdapter;
+import com.example.appbanlaptop.manager.CartManager;
 import com.stripe.android.PaymentConfiguration;
 import com.stripe.android.paymentsheet.PaymentSheet;
 import com.stripe.android.paymentsheet.PaymentSheetResult;
@@ -76,7 +77,7 @@ public class PayFragment extends AppCompatActivity {
 
     String paymentMethod = "";
 
-    String paymentStatus = "";
+    String paymentStatus = "Pending";
 
     private Double tongTienHang = 0.0;
     private Double tongTienGiaoHang = 0.0;
@@ -104,6 +105,7 @@ public class PayFragment extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_pay);
+        fetchApi();
         // Khởi tạo các thành phần giao diện
         addressEditText = findViewById(R.id.addressEditText);
         nameEditText = findViewById(R.id.nameEditText);
@@ -147,11 +149,11 @@ public class PayFragment extends AppCompatActivity {
                 paypalCheckbox.setChecked(true);
                 codCheckbox.setChecked(false);
                 paymentMethod = "Thẻ tín dụng";
-                paypayButton.setBackground(getDrawable(R.drawable.border_radius_orange_bg));
+                paypayButton.setBackground(getDrawable(R.drawable.background_active));
                 codButton.setBackground(getDrawable(R.drawable.border_radius_gray));
                 if(paymentIntentClientSecret != null){
                     paymentSheet.presentWithPaymentIntent(paymentIntentClientSecret,
-                            new PaymentSheet.Configuration("Bui Hieu", configuration));
+                            new PaymentSheet.Configuration("Hieu Bui", configuration));
                 }else{
                     Toast.makeText(PayFragment.this, "API is loading...", Toast.LENGTH_SHORT).show();
                 }
@@ -171,13 +173,13 @@ public class PayFragment extends AppCompatActivity {
         orderBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                fetchApi();
                 // Lấy dữ liệu từ người dùng nhập
                 String addInfo = additionalInfo.getText().toString();
 
                 // Tạo Intent để chuyển qua BillFragment và đính kèm dữ liệu
                 Intent intent = new Intent(PayFragment.this, BillFragment.class);
-
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 // Tạo một Bundle để đóng gói thông tin sản phẩm và thông tin người nhập
                 Bundle bundle = new Bundle();
                 bundle.putParcelableArrayList("cartItems", cartItems);
@@ -223,7 +225,7 @@ public class PayFragment extends AppCompatActivity {
                     jsonParams.put("shippingAddress", shippingAddress);
                     jsonParams.put("shippingMethod", shippingMethod);
                     jsonParams.put("shippingCost", shippingCost1.replace("đ", "").replace(".", ""));
-                    jsonParams.put("estimatedDeliveryDate", estimatedDeliveryDate);
+                    jsonParams.put("estimatedDeliveryDate", LocalDateTime.now().plusDays(3));
                     jsonParams.put("customerEmail", customerEmail);
                     jsonParams.put("customerPhone", customerPhone);
                     jsonParams.put("notes", notes);
@@ -243,11 +245,6 @@ public class PayFragment extends AppCompatActivity {
                                 try {
                                     String message = response.getString("message");
                                     String status = response.getString("status");
-                                    if (status.equals("success")) {
-                                        Toast.makeText(PayFragment.this, "Đã chèn vào dtb", Toast.LENGTH_SHORT).show();
-                                    } else {
-                                        Toast.makeText(PayFragment.this, "Chen that bai " + message, Toast.LENGTH_SHORT).show();
-                                    }
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
@@ -263,10 +260,20 @@ public class PayFragment extends AppCompatActivity {
                             }
                         });
 
-                // Add the request to the queue
-                queue.add(jsonRequest);
+                // Add the request to the que
+
                 // Thay vì sử dụng startActivity(), bạn cần sử dụng startActivityForResult()
-                startActivityForResult(intent, 1);
+                if(!addressEditText.getText().toString().isEmpty() && !nameEditText.getText().toString().isEmpty() && !phoneEditText.getText().toString().isEmpty() &&  !AdditionalInfo.getText().toString().isEmpty()){
+                    queue.add(jsonRequest);
+                    startActivityForResult(intent, 1);
+                }else {
+                    Toast.makeText(getApplicationContext(), "Vui lòng nhập đủ thông tin", Toast.LENGTH_SHORT).show();
+                }
+
+                CartManager cartManager = CartManager.getInstance(getApplicationContext());
+                for(int i =0; i< cartItems.size();i++){
+                    cartManager.removeFromCart(cartItems.get(i));
+                }
 
             }
         });
@@ -311,7 +318,7 @@ public class PayFragment extends AppCompatActivity {
                 paramV.put("amount", tongTienHang.toString());
                 paramV.put("currency", "VND");
                 paramV.put("description", AdditionalInfo.getText().toString());
-                Log.d("THANH TOAN", nameEditText.getText().toString() + "/" +addressEditText.getText().toString() + "/" +"100000"+ "/"+"Viet Nam "+"/"+tongTienHang.toString()+"/"+"VND" );
+                Log.d("THANH TOAN", nameEditText.getText().toString() + "/" +addressEditText.getText().toString() + "/" +"100000"+ "/"+"Viet Nam "+"/"+tongTienHang.toString()+"/"+"VND"+ " / "+   AdditionalInfo.getText().toString());
                 return paramV;
             }
         };
@@ -326,6 +333,7 @@ public class PayFragment extends AppCompatActivity {
             Toast.makeText(this, ((PaymentSheetResult.Failed) paymentSheetResult).getError().getMessage(), Toast.LENGTH_SHORT).show();
         }
         if(paymentSheetResult instanceof  PaymentSheetResult.Completed){
+            fetchApi();
             Toast.makeText(this, "Payment success", Toast.LENGTH_SHORT).show();
         }
     }
