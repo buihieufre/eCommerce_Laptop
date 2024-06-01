@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:id="@+id/item_product_imageView"
+        android:src="@color/cardview_dark_background"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/item_nameProduct_textview"
+        android:text="@string/name"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:layout_margin="10dp"
+        android:textSize="15dp"/>
+
+    <LinearLayout
+        android:padding="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:gravity="center_vertical"
+            android:id="@+id/item_ramProduct_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="RAM 8 GB"
+            android:textSize="10dp"
+            android:textColor="@color/black"
+            android:background="#EFECEC"
+            android:padding="7dp"/>
+
+        <TextView
+            android:textSize="10dp"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/item_ssdProduct_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="#EFECEC"
+            android:padding="7dp"
+            android:text="SSD 510 GB"
+            android:textColor="@color/black" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/item_discountProduct_textview"
+            android:text="@string/discount"
+            android:textColor="#E72929"
+            android:textStyle="bold"
+            android:textSize="12dp" />
+
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/item_oldpriceProduct_textview"
+            android:text="@string/cost"
+            android:textColor="#444"
+            android:textStyle="bold"
+            android:textSize="9dp"/>
+    </LinearLayout>
+
+</LinearLayout>

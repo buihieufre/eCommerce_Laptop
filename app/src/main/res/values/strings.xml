@@ -5,5 +5,26 @@
     <string name="search_page">Search Page</string>
     <string name="love_page">Love Page</string>
     <string name="account_page">Account Page </string>
+    <string name="your_personal_data_will_be_used_to_support_your_experience_throughout_this_app_to_manage_access_to_your_account">Your personal data will be used to support your experience throughout this app, to manage access to your account.</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="error_while_register">Error while register</string>
 
+
+    <string name="price_format">Giá cũ: %.2f đ</string>
+    <string name="discount_format">Giảm giá: %.2f đ</string>
+    <string name="ssd">SSD: %1$s</string>
+    <string name="ram">RAM: %1$s</string>
+    <string name="add_to_cart">Thêm vào giỏ hàng</string>
+    <string name="wish_list">Yêu thích</string>
+    <string name="cost">COST: %d</string>
+    <string name="discount">DISCOUNT: %d</string>
+    <string name="name">NAME</string>
+    <string name="pricen_format">Giá: $%.2f</string>
+    <string name="quantity_format">Số lượng: %d</string>
+
+    <string name="username">Username</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="phone">Phone</string>
 </resources>
