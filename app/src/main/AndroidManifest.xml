@@ -32,6 +32,10 @@
             android:exported="false" />
         <activity
             android:windowSoftInputMode="adjustResize|stateVisible"
+            android:name=".activity.AccountSettingActivity"
+            android:exported="false" />
+        <activity
+            android:windowSoftInputMode="adjustResize|stateVisible"
             android:name=".activity.MainActivity"
             android:exported="true">
             <intent-filter>

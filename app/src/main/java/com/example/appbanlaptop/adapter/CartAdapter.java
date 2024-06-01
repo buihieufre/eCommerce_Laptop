@@ -18,6 +18,7 @@ import androidx.annotation.Nullable;
 import com.bumptech.glide.Glide;
 import com.example.appbanlaptop.R;
 import com.example.appbanlaptop.fragment.SearchFragment;
+import com.example.appbanlaptop.manager.CartManager;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -35,6 +36,7 @@ public class CartAdapter extends ArrayAdapter<SearchFragment.LaptopProduct> {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+        CartManager cartManager = CartManager.getInstance(getContext().getApplicationContext());
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_laptop_product_cart, parent, false);
         }
@@ -91,6 +93,7 @@ public class CartAdapter extends ArrayAdapter<SearchFragment.LaptopProduct> {
                 @Override
                 public void onClick(View v) {
                     remove(product);
+                    cartManager.removeFromCart(product);
                     notifyDataSetChanged();
                 }
             });

@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -29,12 +30,16 @@ public class CartFragment extends Fragment {
     private CartAdapter adapter;
     private Button checkoutButton;
 
+    private ImageButton removeBtn;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_cart, container, false);
         listView = view.findViewById(R.id.listViewCart);
         checkoutButton = view.findViewById(R.id.checkoutButton);
+        removeBtn = listView.findViewById(R.id.removeButton);
+
         // Khởi tạo danh sách sản phẩm giỏ hàng và adapter
         List<SearchFragment.LaptopProduct> cart = CartManager.getInstance(getContext().getApplicationContext()).getCart();
         adapter = new CartAdapter(requireContext(), cart);

@@ -1,8 +1,5 @@
 package com.example.appbanlaptop.activity;
 
-import static com.example.appbanlaptop.modal.PreferenceHelper.sharedPreferences;
-
-import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -38,19 +35,14 @@ public class AccountSettingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_account_settings);
 
         etUserName = findViewById(R.id.etUserName);
-        etEmail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
         btnUpdateName = findViewById(R.id.btnUpdateName);
-        btnUpdateEmail = findViewById(R.id.btnUpdateEmail);
         btnUpdatePass = findViewById(R.id.btnUpdatePass);
         btnChangeName = findViewById(R.id.btnChangeName);
-        btnChangeEmail = findViewById(R.id.btnChangeEmail);
         btnChangePass = findViewById(R.id.btnChangePass);
         btnDropName = findViewById(R.id.btnDropName);
-        btnDropEmail = findViewById(R.id.btnDropEmail);
         btnDropPass = findViewById(R.id.btnDropPass);
         newName = findViewById(R.id.newName);
-        newEmail = findViewById(R.id.newEmail);
         newPass = findViewById(R.id.newPass);
 
         btnChangeName.setOnClickListener(new View.OnClickListener() {
@@ -70,26 +62,6 @@ public class AccountSettingActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String newName = etUserName.getText().toString();
                 sendUpdateRequest("name", newName);
-            }
-        });
-        btnChangeEmail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                toggleVisibility(newEmail);
-            }
-        });
-        btnDropEmail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                toggleVisibility(newEmail);
-            }
-        });
-        btnUpdateEmail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Handle update action
-                String newName = etEmail.getText().toString();
-                sendUpdateRequest("email", newName);
             }
         });
         btnChangePass.setOnClickListener(new View.OnClickListener() {

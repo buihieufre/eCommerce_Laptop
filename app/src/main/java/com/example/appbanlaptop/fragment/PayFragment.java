@@ -21,6 +21,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
@@ -35,6 +36,7 @@ import org.json.JSONObject;
 
 import java.text.NumberFormat;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
@@ -205,67 +207,64 @@ public class PayFragment extends AppCompatActivity {
 
 
                 // Chèn dữ liệu lên database
-                RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-                String url ="https://buihieu204.000webhostapp.com/insertOrder.php";
+                JSONObject jsonParams = new JSONObject();
+                try {
+                    jsonParams.put("customerName", nameEditText.getText().toString());
 
-                StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
-                        new Response.Listener<String>() {
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                    String formattedDate = LocalDateTime.now().format(formatter);
+                    jsonParams.put("orderDate", formattedDate);
+                    jsonParams.put("orderStatus", orderStatus);
+                    jsonParams.put("totalAmount", tongTien.toString());
+                    jsonParams.put("productId", String.valueOf(productId));
+                    jsonParams.put("quantity", String.valueOf(quantity));
+                    jsonParams.put("paymentMethod", paymentMethod);
+                    jsonParams.put("paymentStatus", paymentStatus);
+                    jsonParams.put("shippingAddress", shippingAddress);
+                    jsonParams.put("shippingMethod", shippingMethod);
+                    jsonParams.put("shippingCost", shippingCost1.replace("đ", "").replace(".", ""));
+                    jsonParams.put("estimatedDeliveryDate", estimatedDeliveryDate);
+                    jsonParams.put("customerEmail", customerEmail);
+                    jsonParams.put("customerPhone", customerPhone);
+                    jsonParams.put("notes", notes);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                // Create a request queue
+                RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+
+                // Create a new request using JsonObjectRequest
+                String url = "https://buihieu204.000webhostapp.com/insertOrder.php";
+                JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.POST, url, jsonParams,
+                        new Response.Listener<JSONObject>() {
                             @Override
-                            public void onResponse(String response) {
+                            public void onResponse(JSONObject response) {
                                 try {
-                                    JSONObject jsonObject = new JSONObject(response);
-                                    String message = jsonObject.getString("message");
-                                    String status = jsonObject.getString("status");
-                                    if(status == "success"){
-                                        Log.d("Message: ", message);
-                                    }else{
-                                        Log.d("Message: ", message);
+                                    String message = response.getString("message");
+                                    String status = response.getString("status");
+                                    if (status.equals("success")) {
+                                        Toast.makeText(PayFragment.this, "Đã chèn vào dtb", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Toast.makeText(PayFragment.this, "Chen that bai " + message, Toast.LENGTH_SHORT).show();
                                     }
-                                }catch (JSONException e){
+                                } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
                             }
-                        }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                    }
-                }){
-                    protected Map<String, String> getParams(){
-                        Log.d("KET QUA HOM NAY", nameEditText.getText().toString() +" / " + LocalDateTime.now().toString()+" / "
-                                + orderStatus +" / "
-                                + tongTien.toString() + " / "
-                                + String.valueOf(productId) + " / "
-                                + quantity + " / "
-                                + paymentMethod + " / "
-                                + paymentStatus + " / "
-                                + shippingAddress + " / "
-                                + shippingCost1.replace("đ", "").replace(".", "") + " / "
-                                +estimatedDeliveryDate + " / "
-                                + customerEmail + " / "
-                                +customerPhone + " / "
-                                + notes + " "
-                        );
-                        Map<String, String> paramV = new HashMap<>();
-                        paramV.put("customerName", nameEditText.getText().toString());
-                        paramV.put("orderDate", LocalDateTime.now().toString());
-                        paramV.put("orderStatus", orderStatus);
-                        paramV.put("totalAmount", tongTien.toString());
-                        paramV.put("productId", String.valueOf(productId));
-                        paramV.put("quantity", String.valueOf(quantity));
-                        paramV.put("paymentMethod", paymentMethod);
-                        paramV.put("paymentStatus", paymentStatus);
-                        paramV.put("shippingAddress", shippingAddress);
-                        paramV.put("shippingMethod", shippingMethod);
-                        paramV.put("shippingCost", shippingCost1.replace("đ", "").replace(".", ""));
-                        paramV.put("estimatedDeliveryDate", estimatedDeliveryDate);
-                        paramV.put("customerEmail", customerEmail);
-                        paramV.put("customerPhone", customerPhone);
-                        paramV.put("notes", notes);
-                        return paramV;
-                    }
-                };
-                queue.add(stringRequest);
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                // Handle error
+                                error.printStackTrace();
+                                Toast.makeText(PayFragment.this, "Lỗi khi gửi yêu cầu: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                                Log.d("LỖI: ", error.getMessage());
+                            }
+                        });
 
+                // Add the request to the queue
+                queue.add(jsonRequest);
                 // Thay vì sử dụng startActivity(), bạn cần sử dụng startActivityForResult()
                 startActivityForResult(intent, 1);
 

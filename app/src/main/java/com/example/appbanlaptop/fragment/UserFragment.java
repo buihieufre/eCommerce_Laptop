@@ -153,7 +153,7 @@ public class UserFragment extends Fragment {
         btnOverview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), MainActivity.class);
+                Intent intent = new Intent(getContext().getApplicationContext(), MainActivity.class);
                 startActivity(intent);
             }
         });
@@ -161,7 +161,7 @@ public class UserFragment extends Fragment {
         btnSetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), AccountSettingActivity.class);
+                Intent intent = new Intent(getContext().getApplicationContext(), AccountSettingActivity.class);
                 startActivity(intent);
             }
         });
