@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 
 public class PreferenceHelper {
     private static final String PREFERENCE_NAME = "your_preference_name";
-    private static SharedPreferences sharedPreferences;
+    public static SharedPreferences sharedPreferences;
 
     // Khởi tạo SharedPreferences
     private static SharedPreferences getSharedPreferences(Context context) {
