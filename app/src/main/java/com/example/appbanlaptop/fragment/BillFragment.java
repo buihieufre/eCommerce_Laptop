@@ -2,17 +2,12 @@ package com.example.appbanlaptop.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.bumptech.glide.Glide;
 import com.example.appbanlaptop.R;
@@ -21,12 +16,16 @@ import java.util.ArrayList;
 
 public class BillFragment extends AppCompatActivity {
 
+
+    private TextView billPayment;
+    private TextView tongTien;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.fragment_bill);
-
+        billPayment = findViewById(R.id.billPayment);
+        tongTien = findViewById(R.id.totalMoney);
 
         Intent intent = getIntent();
         if (intent != null) {
@@ -45,6 +44,9 @@ public class BillFragment extends AppCompatActivity {
 
             TextView phoneTextView = findViewById(R.id.phoneTextView);
             phoneTextView.setText("Số điện thoại: " + phone);
+
+            billPayment.setText(intent.getStringExtra("paymentMethod"));
+            tongTien.setText(intent.getStringExtra("totalMoney"));
 
             // Hiển thị thông tin sản phẩm
             LinearLayout productsLayout = findViewById(R.id.productsLayout);

@@ -17,7 +17,8 @@ public class Product implements Parcelable {
     public Product() {
     }
 
-    public Product( String ImageProduct, String NameProduct, String RamProduct, String SsdProduct, String OldPriceProduct, String DiscountProduct) {
+    public Product( String idProduct, String ImageProduct, String NameProduct, String RamProduct, String SsdProduct, String OldPriceProduct, String DiscountProduct) {
+        this.IdProduct = idProduct;
         this.ImageProduct = ImageProduct;
         this.NameProduct = NameProduct;
         this.RamProduct = RamProduct;
@@ -26,7 +27,16 @@ public class Product implements Parcelable {
         this.DiscountProduct = DiscountProduct;
     }
 
+    public Product( String idProduct, String ImageProduct, String NameProduct, String OldPriceProduct, String DiscountProduct) {
+        this.IdProduct = idProduct;
+        this.ImageProduct = ImageProduct;
+        this.NameProduct = NameProduct;
+        this.OldPriceProduct = OldPriceProduct;
+        this.DiscountProduct = DiscountProduct;
+    }
+
     protected Product(Parcel in) {
+        IdProduct = in.readString();
         ImageProduct = in.readString();
         NameProduct = in.readString();
         RamProduct = in.readString();
@@ -46,6 +56,14 @@ public class Product implements Parcelable {
             return new Product[size];
         }
     };
+
+    public String getIdProduct() {
+        return IdProduct;
+    }
+
+    public void setIdProduct(String idProduct) {
+        IdProduct = idProduct;
+    }
 
     public String getImageProduct() {
         return ImageProduct;
@@ -102,6 +120,7 @@ public class Product implements Parcelable {
 
     @Override
     public void writeToParcel(@NonNull Parcel dest, int flags) {
+        dest.writeString(IdProduct);
         dest.writeString(ImageProduct);
         dest.writeString(NameProduct);
         dest.writeString(RamProduct);

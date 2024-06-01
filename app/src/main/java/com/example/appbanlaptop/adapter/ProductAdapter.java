@@ -34,7 +34,11 @@ import java.util.Map;
 public class ProductAdapter extends BaseAdapter {
 
     private Context mContext;
-    private List<Product> mProductList;
+    private static List<Product> mProductList;
+
+    public List<Product> getmProductList() {
+        return mProductList;
+    }
 
     public ProductAdapter(Context context, List<Product> productList) {
         this.mContext = context;

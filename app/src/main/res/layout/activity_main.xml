@@ -8,7 +8,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:paddingBottom="0dp"
     android:isScrollContainer="false"
     tools:context=".activity.MainActivity"
     >
@@ -71,7 +70,7 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
                     <FrameLayout
-                        android:layout_gravity="center_horizontal"
+                            android:layout_gravity="center_horizontal"
                         android:id="@+id/flFragement"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
@@ -86,7 +85,8 @@
                             android:horizontalSpacing="10dp"
                             android:id="@+id/mainGridView"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="50dp"
                             android:layout_margin="10dp"
                             android:numColumns="2"
                             tools:layout_editor_absoluteX="1dp"
@@ -97,22 +97,6 @@
             </LinearLayout>
 
         </ScrollView>
-
-        <com.google.android.material.navigation.NavigationView
-            android:id="@+id/navView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            android:background="#ccc">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:text="This is tab bar"
-                android:textSize="50sp" />
-        </com.google.android.material.navigation.NavigationView>
 
     </androidx.drawerlayout.widget.DrawerLayout>
 

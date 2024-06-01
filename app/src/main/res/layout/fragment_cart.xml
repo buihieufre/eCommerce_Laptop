@@ -1,23 +1,27 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:paddingBottom="90dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:isScrollContainer="true"
     tools:context=".fragment.CartFragment">
 
     <!-- ListView hiển thị các mục sản phẩm trong giỏ hàng -->
+
+    <!-- Button layout cho các chức năng -->
+
     <ListView
         android:id="@+id/listViewCart"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_height="500dp" />
 
-    <!-- Button layout cho các chức năng -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="84dp"
         android:orientation="horizontal"
-        android:padding="16dp">
+        android:padding="16dp"
+        android:paddingTop="0dp">
 
         <!-- Button để thanh toán -->
         <Button

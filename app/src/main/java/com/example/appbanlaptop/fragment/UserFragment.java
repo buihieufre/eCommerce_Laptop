@@ -13,7 +13,6 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -98,10 +97,7 @@ public class UserFragment extends Fragment {
                                     editor.putString("apiKey", "");
                                     editor.apply();
                                     FragmentTransaction fm = getActivity().getSupportFragmentManager().beginTransaction();
-                                    fm.setCustomAnimations(
-                                            R.anim.slide_in_left_login_register,
-                                            R.anim.slide_out_right_login_register
-                                    ).replace(R.id.flFragement, loginFragment).commit();
+                                    fm.replace(R.id.flFragement, loginFragment).commit();
                                 }
                                 else{
                                     Toast.makeText(getContext(), response, Toast.LENGTH_SHORT).show();
@@ -131,8 +127,10 @@ public class UserFragment extends Fragment {
             public void onClick(View v) {
                 if (account_user.getVisibility() == View.GONE) {
                     account_user.setVisibility(View.VISIBLE);
+                    btnDrop.setRotation(0);
                 }
                 else {
+                    btnDrop.setRotation(-90);
                     account_user.setVisibility(View.GONE);
                 }
             }
@@ -143,8 +141,10 @@ public class UserFragment extends Fragment {
             public void onClick(View v) {
                 if (account_user.getVisibility() == View.GONE) {
                     account_user.setVisibility(View.VISIBLE);
+                    btnDrop.setRotation(0);
                 }
                 else {
+                    btnDrop.setRotation(-90);
                     account_user.setVisibility(View.GONE);
                 }
             }
@@ -153,7 +153,7 @@ public class UserFragment extends Fragment {
         btnOverview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), MainActivity.class);
+                Intent intent = new Intent(getContext().getApplicationContext(), MainActivity.class);
                 startActivity(intent);
             }
         });
@@ -161,7 +161,7 @@ public class UserFragment extends Fragment {
         btnSetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), AccountSettingActivity.class);
+                Intent intent = new Intent(getContext().getApplicationContext(), AccountSettingActivity.class);
                 startActivity(intent);
             }
         });
