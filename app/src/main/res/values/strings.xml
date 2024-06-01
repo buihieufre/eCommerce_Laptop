@@ -21,8 +21,10 @@
     <string name="discount">DISCOUNT: %d</string>
     <string name="name">NAME</string>
     <string name="pricen_format">Giá: $%.2f</string>
-
-
     <string name="quantity_format">Số lượng: %d</string>
 
+    <string name="username">Username</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="phone">Phone</string>
 </resources>

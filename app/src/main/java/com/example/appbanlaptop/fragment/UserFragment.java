@@ -2,6 +2,7 @@ package com.example.appbanlaptop.fragment;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,6 +27,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.appbanlaptop.R;
+import com.example.appbanlaptop.activity.AccountSettingActivity;
+import com.example.appbanlaptop.activity.MainActivity;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -38,7 +41,7 @@ public class UserFragment extends Fragment {
     TextView userName;
     static TextView email;
     TextView phone;
-    Button btnOverview, btnAccount, btnOrders, btnSetting, btnLogout;
+    Button btnOverview, btnAccount, btnSetting, btnLogout;
     SharedPreferences sharedPreferences;
     LoginFragment loginFragment;
     ImageView imageAvt;
@@ -56,7 +59,6 @@ public class UserFragment extends Fragment {
         btnLogout = v.findViewById(R.id.btnLogout);
         btnOverview = v.findViewById(R.id.btnOverview);
         btnAccount = v.findViewById(R.id.btnAccount);
-        btnOrders = v.findViewById(R.id.btnOrders);
         btnSetting = v.findViewById(R.id.btnSetting);
         btnDrop = v.findViewById(R.id.btnDrop);
         imageAvt = v.findViewById(R.id.avtImg);
@@ -148,6 +150,21 @@ public class UserFragment extends Fragment {
             }
         });
 
+        btnOverview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btnSetting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), AccountSettingActivity.class);
+                startActivity(intent);
+            }
+        });
         return v;
     }
 }
