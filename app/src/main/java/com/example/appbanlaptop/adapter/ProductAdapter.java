@@ -118,7 +118,7 @@ public class ProductAdapter extends BaseAdapter {
                             @Override
                             public void onResponse(JSONObject response) {
                                 JSONArray jsonArray;
-                                JSONObject productdetail;
+                                JSONObject productdetail = new JSONObject();
                                 // Handle the response
                                 try {
                                     jsonArray = response.getJSONArray("data");
@@ -126,7 +126,10 @@ public class ProductAdapter extends BaseAdapter {
                                     throw new RuntimeException(e);
                                 }
                                 try {
-                                    productdetail = jsonArray.getJSONObject(position);
+                                    if(position<99)
+                                    {
+                                        productdetail = jsonArray.getJSONObject(position);
+                                    }
                                     detailproduct.setCpu(productdetail.getString("cpu"));
                                     detailproduct.setSoNhan(productdetail.getString("soNhan"));
                                     detailproduct.setSoLuong(productdetail.getString("soLuong"));

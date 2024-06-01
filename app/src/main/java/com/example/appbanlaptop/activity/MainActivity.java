@@ -25,7 +25,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
-import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.appbanlaptop.R;
@@ -56,7 +55,6 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnItemSelectedListener {
     LinearLayout linearLayout;
@@ -201,11 +199,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     private void ActionBar() {
         setSupportActionBar(toolbar);
-        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-        toolbar.setNavigationIcon(R.drawable.menu);
         TextView homeHeader = (TextView) findViewById(R.id.homeHeader);
         homeHeader.setLeft(0);
-        toolbar.setNavigationOnClickListener(v -> {drawerLayout.openDrawer(GravityCompat.START);});
         @SuppressLint("CutPasteId") TextView textView = (TextView) findViewById(R.id.homeHeader);
 
         TextPaint paint = textView.getPaint();
@@ -224,7 +219,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     }
 
     private void AnhXa(){
-        toolbar = findViewById(R.id.toolbar);
 //        navigationView = findViewById(R.id.navView);
         drawerLayout = findViewById(R.id.drawerLayoutHome);
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
