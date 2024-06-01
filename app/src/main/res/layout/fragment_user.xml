@@ -8,7 +8,7 @@
 
     <LinearLayout
         android:id="@+id/spinnerAccount"
-        android:padding="20sp"
+        android:padding="5dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -64,6 +64,7 @@
                 android:paddingLeft="10dp"/>
 
             <ImageButton
+                android:rotation="-90"
                 android:id="@+id/btnDrop"
                 android:layout_width="50dp"
                 android:layout_height="match_parent"

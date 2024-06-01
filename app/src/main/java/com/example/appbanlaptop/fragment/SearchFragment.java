@@ -185,6 +185,7 @@ public class SearchFragment extends Fragment {
         private double oldPrice;
         private double discount;
         private int quantity;
+        private  boolean ischecked;
 
         public LaptopProduct(int id, String name, String imageUrl, String ssd, String ram, double oldPrice, double discount) {
             this.id = id;
@@ -237,6 +238,14 @@ public class SearchFragment extends Fragment {
                 return new LaptopProduct[size];
             }
         };
+
+        public boolean isIschecked() {
+            return ischecked;
+        }
+
+        public void setIschecked(boolean ischecked) {
+            this.ischecked = ischecked;
+        }
 
         public int getQuantity() {
             return quantity;

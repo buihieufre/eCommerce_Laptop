@@ -58,4 +58,9 @@ dependencies {
 
     implementation("com.squareup.picasso:picasso:2.8")
     implementation("com.google.code.gson:gson:2.9.0")
+    // Paypal
+    implementation("com.stripe:stripe-android:20.44.1")
+
+
+
 }

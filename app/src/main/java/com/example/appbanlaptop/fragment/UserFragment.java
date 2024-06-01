@@ -12,7 +12,6 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -126,8 +125,10 @@ public class UserFragment extends Fragment {
             public void onClick(View v) {
                 if (account_user.getVisibility() == View.GONE) {
                     account_user.setVisibility(View.VISIBLE);
+                    btnDrop.setRotation(0);
                 }
                 else {
+                    btnDrop.setRotation(-90);
                     account_user.setVisibility(View.GONE);
                 }
             }
@@ -138,8 +139,10 @@ public class UserFragment extends Fragment {
             public void onClick(View v) {
                 if (account_user.getVisibility() == View.GONE) {
                     account_user.setVisibility(View.VISIBLE);
+                    btnDrop.setRotation(0);
                 }
                 else {
+                    btnDrop.setRotation(-90);
                     account_user.setVisibility(View.GONE);
                 }
             }

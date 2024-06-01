@@ -33,11 +33,13 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="RAM 8 GB"
+            android:textSize="10dp"
             android:textColor="@color/black"
             android:background="#EFECEC"
             android:padding="7dp"/>
 
         <TextView
+            android:textSize="10dp"
             android:layout_marginLeft="10dp"
             android:id="@+id/item_ssdProduct_textview"
             android:layout_width="wrap_content"
@@ -65,7 +67,7 @@
             android:text="@string/discount"
             android:textColor="#E72929"
             android:textStyle="bold"
-            android:textSize="15dp" />
+            android:textSize="12dp" />
 
         <TextView
             android:layout_marginLeft="10dp"
@@ -75,7 +77,7 @@
             android:text="@string/cost"
             android:textColor="#444"
             android:textStyle="bold"
-            android:textSize="11dp"/>
+            android:textSize="9dp"/>
     </LinearLayout>
 
 </LinearLayout>

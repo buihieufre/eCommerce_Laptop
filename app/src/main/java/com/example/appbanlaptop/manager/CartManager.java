@@ -18,6 +18,7 @@ public class CartManager {
     private static CartManager instance;
     private List<SearchFragment.LaptopProduct> cart;
     private List<SearchFragment.LaptopProduct> wishList;
+
     public static String producCartList = "PRODUCTCARTLIST";
 
 

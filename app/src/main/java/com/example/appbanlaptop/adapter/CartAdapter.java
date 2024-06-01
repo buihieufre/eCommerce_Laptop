@@ -2,7 +2,7 @@ package com.example.appbanlaptop.adapter;
 
 import android.content.Context;
 import android.graphics.Paint;
-import android.util.Log;
+import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,14 +20,17 @@ import com.example.appbanlaptop.R;
 import com.example.appbanlaptop.fragment.SearchFragment;
 
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
 public class CartAdapter extends ArrayAdapter<SearchFragment.LaptopProduct> {
-
+    private SparseBooleanArray checkBoxStateArray;
     public CartAdapter(Context context, List<SearchFragment.LaptopProduct> products) {
         super(context, 0, products);
+        checkBoxStateArray = new SparseBooleanArray();
     }
+
 
     @NonNull
     @Override
@@ -91,8 +94,23 @@ public class CartAdapter extends ArrayAdapter<SearchFragment.LaptopProduct> {
                     notifyDataSetChanged();
                 }
             });
+            checkBox.setOnCheckedChangeListener(null);
+            checkBox.setChecked(product.isIschecked());
+            checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                product.setIschecked(isChecked);
+                checkBoxStateArray.put(position, isChecked);
+            });
         }
 
         return convertView;
+    }
+    public List<SearchFragment.LaptopProduct> getCheckedProducts() {
+        List<SearchFragment.LaptopProduct> checkedProducts = new ArrayList<>();
+        for (int i = 0; i < getCount(); i++) {
+            if (checkBoxStateArray.get(i, false)) {
+                checkedProducts.add(getItem(i));
+            }
+        }
+        return checkedProducts;
     }
 }
